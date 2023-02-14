@@ -3,9 +3,9 @@ var IshopComponent  = React.createClass({
     displayName: 'IshopComponent',
 
     propTypes: {
-        title: React.PropTypes.string.isRequired,
+
         cars:React.PropTypes.arrayOf(
-            React.PropTypes.shape({
+                React.PropTypes.shape({
                 code: React.PropTypes.number.isRequired,
                 brandTitle: React.PropTypes.string.isRequired,
                 modelTitle: React.PropTypes.string.isRequired,

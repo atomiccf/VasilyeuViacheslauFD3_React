@@ -7,7 +7,11 @@ var TitleComponent  = React.createClass({
 
     },
 
+propTypes: {
+    title: React.PropTypes.string.isRequired
 
+
+},
 
 
 
