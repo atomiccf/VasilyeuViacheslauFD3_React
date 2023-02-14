@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="IshopComponet.css">
+    <link rel="stylesheet" href="TitleComponent.css">
+    <title>Ishop</title>
+
+
+</head>
+<body>
+<div id="app">
+
+</div>
+
+
+
+<script src="https://unpkg.com/react@15/dist/react.js"></script>
+<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+
+<script src="IshopComponent.js"></script>
+<script src="TitleComponent.js"></script>
+<script>
+
+const shopTitle = 'Clean Deal Shop'  
+const carsArr = [
+
+    {
+        brandTitle: 'Audi',
+        code: 1,
+        image: 'http://otzyvy-avtovladelcev.ru/img/auto-body-image/1074/13366.jpg',
+        modelTitle: 'A4',
+        price: 45000,
+        quantity: 12,
+    },
+    {
+        brandTitle: 'Mercedes',
+        code: 2,
+        modelTitle: 'C180',
+        image: 'https://a.d-cd.net/VGAAAgP7JOA-1920.jpg',
+        engine: 1800,
+        price: 50000,
+        quantity: 5,
+    },
+    {
+        brandTitle: 'Honda',
+        code: 3,
+        modelTitle: 'Accord X',
+        image: 'https://drive.place/images/honda/honda_accord_x_sedan_1.jpg',
+        price: 40000,
+        quantity: 1,
+    },
+   
+]
+
+
+ReactDOM.render(
+
+      React.createElement(IshopComponent, {cars:carsArr, title:shopTitle} ),
+      document.getElementById('app') 
+    );
+
+</script>
+
+
+</body>
+</html>
