@@ -2,7 +2,7 @@ var TitleComponent  = React.createClass({
 
     displayName: 'TitleComponent',
 
-    getDefaultProps: function () {
+   getDefaultProps: function () {
         return {title: "Some shop"}
 
     },
