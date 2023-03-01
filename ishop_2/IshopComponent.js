@@ -1,3 +1,4 @@
+
 var IshopComponent  = React.createClass({
 
     displayName: 'IshopComponent',

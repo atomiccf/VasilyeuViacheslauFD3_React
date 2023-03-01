@@ -1,0 +1,33 @@
+[
+
+    {
+        "brandTitle": "Audi",
+        "code": 1,
+        "itemCode":1,
+        "image": "http://otzyvy-avtovladelcev.ru/img/auto-body-image/1074/13366.jpg",
+        "modelTitle": "A4",
+        "price": 45000,
+        "quantity": 12
+    },
+    {
+        "brandTitle": "Mercedes",
+        "code": 2,
+        "itemCode":2,
+        "modelTitle": "C180",
+        "image": "https://a.d-cd.net/VGAAAgP7JOA-1920.jpg",
+        "engine": 1800,
+        "price": 50000,
+        "quantity": 5
+    },
+    {
+        "brandTitle": "Honda",
+        "code": 3,
+        "itemCode":3,
+        "modelTitle": "Accord X",
+        "image": "https://drive.place/images/honda/honda_accord_x_sedan_1.jpg",
+        "price": 40000,
+        "quantity": 1
+    }
+
+]
+
