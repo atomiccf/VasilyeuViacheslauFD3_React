@@ -8,7 +8,6 @@ var FilterComponent = React.createClass({
 
     },
 
-
     getInitialState() {
         return {
             isSort:false,
@@ -16,8 +15,6 @@ var FilterComponent = React.createClass({
             wordList:this.props.words
 
         }
-
-
 
     },
     sortChecked:function (EO) {
@@ -50,7 +47,6 @@ var FilterComponent = React.createClass({
         this.setState({wordList:list});
     },
 
-
 render: function () {
 
     return   React.DOM.div( null,
@@ -63,18 +59,7 @@ render: function () {
 
     )
 
-
-
 }
-
-
-
-
-
-
-
-
-
 
 })
 
