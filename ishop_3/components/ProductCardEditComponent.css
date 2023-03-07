@@ -1,13 +1,4 @@
-img {
-    width: 150px;
-
-
-}.ShopTitle  {
-    text-align: center;
-    background-color: orange;
-    font-size: 30px;
-
-}.input-group {
+.input-group {
     display: flex;
     flex-flow: column;
     width: 500px;
@@ -27,4 +18,3 @@ img {
 
 
 }
-/*# sourceMappingURL=bundle.css.map*/

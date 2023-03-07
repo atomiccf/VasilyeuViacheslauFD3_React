@@ -1,7 +1,7 @@
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import IshopComponent from './IshopComponent';
+
+
 
 
 class ProductComponent extends React.Component{
@@ -12,6 +12,15 @@ class ProductComponent extends React.Component{
 
 
     }
+    edit = (EO) => {
+
+        EO.stopPropagation();
+        return this.props.cbEdit(this.props.code)
+
+
+    }
+
+
 
     delete = (EO) => {
         EO.stopPropagation();
@@ -26,14 +35,13 @@ class ProductComponent extends React.Component{
                 key = {this.props.code}
                 className = {(this.props.selectItemCode === this.props.code)? "table-primary": ""}
                 onClick = {this.clicked}>
-
                 <td>{this.props.index}</td>
                 <td>{this.props.brandTitle}</td>
                 <td>{this.props.modelTitle}</td>
                 <td>{this.props.price + '$'}</td>
                 <td><img alt={'car'} src={this.props.src}/></td>
                 <td>{this.props.quantity}</td>
-                <td> <button type={"button"} className={"btn btn-warning"}>Edit</button></td>
+                <td> <button type={"button"} className={"btn btn-warning"} onClick={this.edit}>Edit</button></td>
                 <td> <button type={"button"} className={"btn btn-warning"} onClick={this.delete}>Delete</button></td>
             </tr>
 
