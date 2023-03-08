@@ -469,7 +469,7 @@ var _IshopComponent2 = _interopRequireDefault(_IshopComponent);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var shopTitle = 'Clean Deal Shop';
-var carsArr = __webpack_require__(32);
+var carsArr = __webpack_require__(34);
 
 _reactDom2.default.render(_react2.default.createElement(_IshopComponent2.default, { cars: carsArr, title: shopTitle }), document.getElementById('app'));
 
@@ -30570,7 +30570,13 @@ var _ProductCardEditComponent = __webpack_require__(30);
 
 var _ProductCardEditComponent2 = _interopRequireDefault(_ProductCardEditComponent);
 
+var _ProductCardAddComponent = __webpack_require__(32);
+
+var _ProductCardAddComponent2 = _interopRequireDefault(_ProductCardAddComponent);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -30603,6 +30609,9 @@ var IshopComponent = function (_React$Component) {
         }, _this.cbEdit = function (code) {
 
             _this.setState({ selectItemCode: code, cardMode: 'edit' });
+        }, _this.clickAdd = function () {
+
+            _this.setState({ cardMode: 'add' });
         }, _this.cbDelete = function (code) {
 
             _this.setState({ defaultCards: _this.state.defaultCards.filter(function (item) {
@@ -30613,13 +30622,16 @@ var IshopComponent = function (_React$Component) {
 
             _this.setState({ defaultCards: _this.state.defaultCards.map(function (item) {
                     if (item.code === code) {
-                        console.log(obj);
+
                         return obj;
                     } else {
 
                         return item;
                     }
                 }) });
+        }, _this.cbSaveAdd = function (obj) {
+
+            _this.setState({ defaultCards: [].concat(_toConsumableArray(_this.state.defaultCards), [obj]) });
         }, _this.cbCancel = function () {
 
             _this.setState({ cardMode: 0 });
@@ -30645,6 +30657,7 @@ var IshopComponent = function (_React$Component) {
                     cbSelect: _this2.cbSelect,
                     cbDelete: _this2.cbDelete,
                     cbEdit: _this2.cbEdit
+
                 });
             });
 
@@ -30652,6 +30665,7 @@ var IshopComponent = function (_React$Component) {
 
                 if (item.code === _this2.state.selectItemCode) return item;
             });
+            var ItemState = this.state.defaultCards;
 
             return _react2.default.createElement(
                 'div',
@@ -30716,12 +30730,16 @@ var IshopComponent = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'button',
-                    { type: "button", className: "btn btn-warning" },
+                    { type: "button", className: "btn btn-warning", onClick: this.clickAdd },
                     'New product'
                 ),
                 this.state.selectItemCode && this.state.cardMode === 'show' && _react2.default.createElement(_ProductCardComponent2.default, { infoItem: ItemInfo }),
                 this.state.selectItemCode && this.state.cardMode === 'edit' && _react2.default.createElement(_ProductCardEditComponent2.default, { key: this.state.selectItemCode, infoItem: ItemInfo,
                     cbSave: this.cbSave,
+                    cbCancel: this.cbCancel
+                }),
+                this.state.cardMode === 'add' && _react2.default.createElement(_ProductCardAddComponent2.default, { stateItem: ItemState,
+                    cbSaveAdd: this.cbSaveAdd,
                     cbCancel: this.cbCancel
                 })
             );
@@ -30740,7 +30758,8 @@ IshopComponent.propTypes = {
         image: _propTypes2.default.string.isRequired,
         price: _propTypes2.default.number.isRequired,
         quantity: _propTypes2.default.number.isRequired
-    }))
+    })),
+    title: _propTypes2.default.string.isRequired
 };
 exports.default = IshopComponent;
 
@@ -32146,6 +32165,133 @@ exports.default = ProductCardEditComponent;
 
 /***/ }),
 /* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+__webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ProductCardAddComponent = function (_React$Component) {
+    _inherits(ProductCardAddComponent, _React$Component);
+
+    function ProductCardAddComponent() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
+        _classCallCheck(this, ProductCardAddComponent);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ProductCardAddComponent.__proto__ || Object.getPrototypeOf(ProductCardAddComponent)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+            code: null,
+            currentName: null,
+            currentModelName: null,
+            currentPrice: null,
+            currentURL: null,
+            currentQuantity: null
+
+        }, _this.generateCode = function () {
+
+            _this.props.stateItem.forEach(function (elem) {
+                var count = 0;
+                count += elem.code;
+                return _this.state.code = count + 1;
+            });
+        }, _this.changeName = function (EO) {
+
+            _this.setState({ currentName: EO.target.value });
+        }, _this.changeModelName = function (EO) {
+
+            _this.setState({ currentModelName: EO.target.value });
+        }, _this.changePrice = function (EO) {
+
+            _this.setState({ currentPrice: EO.target.value });
+        }, _this.changeURL = function (EO) {
+
+            _this.setState({ currentURL: EO.target.value });
+        }, _this.changeQuantity = function (EO) {
+
+            _this.setState({ currentQuantity: EO.target.value });
+        }, _this.add = function () {
+            var obj = {
+                key: _this.state.code,
+                code: _this.state.code,
+                brandTitle: _this.state.currentName,
+                selectItemCode: _this.state.code,
+                modelTitle: _this.state.currentModelName,
+                price: _this.state.currentPrice,
+                image: _this.state.currentURL, quantity: _this.state.currentQuantity };
+            _this.props.cbSaveAdd(obj);
+        }, _this.handleClick = function () {
+            _this.generateCode();
+            _this.add();
+        }, _this.cancel = function () {
+
+            _this.props.cbCancel();
+        }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(ProductCardAddComponent, [{
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'input-group' },
+                _react2.default.createElement('input', { type: 'text', placeholder: 'Brand', 'aria-label': 'Name', defaultValue: this.state.currentName, onChange: this.changeName, className: 'form-control' }),
+                _react2.default.createElement('input', { type: 'text', placeholder: 'ModelName', 'aria-label': 'Name', defaultValue: this.state.currentModelName, onChange: this.changeModelName, className: 'form-control' }),
+                _react2.default.createElement('input', { type: 'number', placeholder: 'Price', 'aria-label': 'Price', defaultValue: this.state.currentPrice, onChange: this.changePrice, className: 'form-control' }),
+                _react2.default.createElement('input', { type: 'text', placeholder: 'URL', 'aria-label': 'URL', defaultValue: this.state.currentURL, onChange: this.changeURL, className: 'form-control' }),
+                _react2.default.createElement('input', { type: 'text', placeholder: 'Quantity', 'aria-label': 'Quantity', defaultValue: this.state.currentQuantity, onChange: this.changeQuantity, className: 'form-control' }),
+                _react2.default.createElement(
+                    'button',
+                    { className: 'btn btn-primary', onClick: this.handleClick },
+                    'Add'
+                ),
+                _react2.default.createElement(
+                    'button',
+                    { className: 'btn btn-primary', onClick: this.cancel },
+                    'Cancel'
+                )
+            );
+        }
+    }]);
+
+    return ProductCardAddComponent;
+}(_react2.default.Component);
+
+exports.default = ProductCardAddComponent;
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 34 */
 /***/ (function(module, exports) {
 
 module.exports = [{"brandTitle":"Audi","code":1,"itemCode":1,"image":"http://otzyvy-avtovladelcev.ru/img/auto-body-image/1074/13366.jpg","modelTitle":"A4","price":45000,"quantity":12},{"brandTitle":"Mercedes","code":2,"itemCode":2,"modelTitle":"C180","image":"https://a.d-cd.net/VGAAAgP7JOA-1920.jpg","engine":1800,"price":50000,"quantity":5},{"brandTitle":"Honda","code":3,"itemCode":3,"modelTitle":"Accord X","image":"https://drive.place/images/honda/honda_accord_x_sedan_1.jpg","price":40000,"quantity":1}]

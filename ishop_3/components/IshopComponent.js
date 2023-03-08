@@ -7,6 +7,7 @@ import TitleComponent from './TitleComponent';
 import ProductComponent from './ProductComponent';
 import ProductCardComponent from './ProductCardComponent';
 import ProductCardEditComponent from "./ProductCardEditComponent";
+import ProductCardAddComponent from "./ProductCardAddComponent";
 
 class IshopComponent extends React.Component {
 
@@ -28,7 +29,7 @@ class IshopComponent extends React.Component {
     state = {
         selectItemCode:null,
         defaultCards:this.props.cars,
-        cardMode: 0,  /* edit -редактирование, show - показать текущую карточку, new - добавление*/
+        cardMode: 0,  /* edit -редактирование, show - показать текущую карточку, add - добавление*/
 
     };
 
@@ -43,7 +44,11 @@ class IshopComponent extends React.Component {
         this.setState({selectItemCode:code,cardMode:'edit'})
 
     };
+    clickAdd= () =>{
 
+        this.setState({cardMode:'add'})
+
+    };
 
     cbDelete = (code) =>{
 
@@ -59,7 +64,7 @@ class IshopComponent extends React.Component {
 
         this.setState({defaultCards:this.state.defaultCards.map(item =>{
                 if (item.code === code) {
-                    console.log(obj)
+
                   return  obj
 
                 } else {
@@ -72,6 +77,15 @@ class IshopComponent extends React.Component {
 
 
     };
+
+    cbSaveAdd = (obj) =>{
+
+
+        this.setState({defaultCards: [...this.state.defaultCards, obj]})
+
+
+    };
+
     cbCancel = () =>{
 
         this.setState({cardMode:0})
@@ -81,8 +95,7 @@ class IshopComponent extends React.Component {
 
 
     render() {
-
-        let ItemCard = this.state.defaultCards.map( (v,index) =>
+          let ItemCard = this.state.defaultCards.map( (v,index) =>
             <ProductComponent index={index+1}
                             key={v.code}
                             brandTitle={v.brandTitle}
@@ -96,6 +109,7 @@ class IshopComponent extends React.Component {
                             cbSelect={this.cbSelect}
                             cbDelete={this.cbDelete}
                             cbEdit={this.cbEdit}
+
             />
 
 
@@ -105,7 +119,8 @@ class IshopComponent extends React.Component {
 
             if (item.code === this.state.selectItemCode) return item
 
-        })
+        });
+        let ItemState = this.state.defaultCards;
 
         return (
             <div>
@@ -126,7 +141,7 @@ class IshopComponent extends React.Component {
                     <tbody>{ItemCard}</tbody>
 
                 </table>
-                <button type={"button"} className={"btn btn-warning"}>New product</button>
+                <button type={"button"} className={"btn btn-warning"} onClick={this.clickAdd}>New product</button>
 
                 {(this.state.selectItemCode && this.state.cardMode === 'show') &&
                     <ProductCardComponent infoItem = {ItemInfo}  />
@@ -139,7 +154,12 @@ class IshopComponent extends React.Component {
                                               cbCancel={this.cbCancel}
                     />
                 }
-
+                {( this.state.cardMode === 'add') &&
+                    <ProductCardAddComponent  stateItem = {ItemState}
+                                              cbSaveAdd={this.cbSaveAdd}
+                                              cbCancel={this.cbCancel}
+                    />
+                }
             </div>
 
         )

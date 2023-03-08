@@ -22,9 +22,20 @@ img {
     min-width: 0;
 }
 
-{
-    width: 250px;
+.input-group {
+    display: flex;
+    flex-flow: column;
+    width: 500px;
 
 
 }
+
+.input-group>.form-control, .input-group>.form-select {
+    position: relative;
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+}
+
+
 /*# sourceMappingURL=bundle.css.map*/
