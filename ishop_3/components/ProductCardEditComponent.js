@@ -39,11 +39,13 @@ this.setState({currentName: EO.target.value})
 
     save = () => {
         let obj =  {
-            code:this.props.infoItem.itemCode,
+            code:this.props.infoItem.code,
             brandTitle:this.state.currentName,
+            selectItemCode:this.props.infoItem,
+            modelTitle:this.props.infoItem.modelTitle,
             price:this.state.currentPrice,
             image:this.state.currentURL,quantity:this.state.currentQuantity};
-        this.props.cbSave(this.props.infoItem.itemCode, obj)
+        this.props.cbSave(this.props.infoItem.code, obj)
 
     }
     cancel = () => {
@@ -56,7 +58,7 @@ this.setState({currentName: EO.target.value})
         return(
 
             <div className="input-group">
-              <span className="input-group-text">ID: {this.props.infoItem.itemCode}</span>
+              <span className="input-group-text">ID: {this.props.infoItem.code}</span>
                 <input type="text" data-tag='tag' aria-label="Name" value={this.state.currentName} onChange={this.changeName}  className="form-control"/>
                 <input type="number" aria-label="Price" value={this.state.currentPrice} onChange={this.changePrice} className="form-control"/>
                 <input type="text" aria-label="URL" value={this.state.currentURL} onChange={this.changeURL} className="form-control"/>

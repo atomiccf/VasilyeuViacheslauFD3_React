@@ -21,13 +21,14 @@ class IshopComponent extends React.Component {
                 price:PropTypes.number.isRequired,
                 quantity:PropTypes.number.isRequired,
             })
-        )
+        ),
+        title:PropTypes.string.isRequired,
     };
 
     state = {
         selectItemCode:null,
         defaultCards:this.props.cars,
-        cardMode: 0,  /* edit -редактирование, show - показать текущую карточку, add - добавление*/
+        cardMode: 0,  /* edit -редактирование, show - показать текущую карточку, new - добавление*/
 
     };
 
@@ -42,15 +43,7 @@ class IshopComponent extends React.Component {
         this.setState({selectItemCode:code,cardMode:'edit'})
 
     };
-    cbSelectCard = () =>{
 
-        this.setState({defaultCards:this.state.defaultCards.find(item =>{
-
-                  return item.code === this.state.selectItemCode;
-            })})
-
-
-    };
 
     cbDelete = (code) =>{
 
@@ -66,12 +59,12 @@ class IshopComponent extends React.Component {
 
         this.setState({defaultCards:this.state.defaultCards.map(item =>{
                 if (item.code === code) {
-
-                  return obj
+                    console.log(obj)
+                  return  obj
 
                 } else {
 
-                    return this.state.defaultCards
+                    return item
 
                 }
 
@@ -85,18 +78,19 @@ class IshopComponent extends React.Component {
 
 
     };
+
+
     render() {
 
         let ItemCard = this.state.defaultCards.map( (v,index) =>
             <ProductComponent index={index+1}
                             key={v.code}
                             brandTitle={v.brandTitle}
-                            code={v.itemCode}
+                            code={v.code}
                             modelTitle={v.modelTitle}
                             src={v.image}
                             price={v.price}
                             quantity={v.quantity}
-                            isSelected={this.state.isSelected}
                             selectItemCode={this.state.selectItemCode}
                             cardMode = {this.state.cardMode}
                             cbSelect={this.cbSelect}
@@ -135,7 +129,7 @@ class IshopComponent extends React.Component {
                 <button type={"button"} className={"btn btn-warning"}>New product</button>
 
                 {(this.state.selectItemCode && this.state.cardMode === 'show') &&
-                    <ProductCardComponent infoItem = {ItemInfo} />
+                    <ProductCardComponent infoItem = {ItemInfo}  />
                 }
 
 

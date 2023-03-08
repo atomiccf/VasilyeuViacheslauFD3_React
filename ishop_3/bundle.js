@@ -30603,12 +30603,6 @@ var IshopComponent = function (_React$Component) {
         }, _this.cbEdit = function (code) {
 
             _this.setState({ selectItemCode: code, cardMode: 'edit' });
-        }, _this.cbSelectCard = function () {
-
-            _this.setState({ defaultCards: _this.state.defaultCards.find(function (item) {
-
-                    return item.code === _this.state.selectItemCode;
-                }) });
         }, _this.cbDelete = function (code) {
 
             _this.setState({ defaultCards: _this.state.defaultCards.filter(function (item) {
@@ -30619,11 +30613,11 @@ var IshopComponent = function (_React$Component) {
 
             _this.setState({ defaultCards: _this.state.defaultCards.map(function (item) {
                     if (item.code === code) {
-
+                        console.log(obj);
                         return obj;
                     } else {
 
-                        return _this.state.defaultCards;
+                        return item;
                     }
                 }) });
         }, _this.cbCancel = function () {
@@ -30641,12 +30635,11 @@ var IshopComponent = function (_React$Component) {
                 return _react2.default.createElement(_ProductComponent2.default, { index: index + 1,
                     key: v.code,
                     brandTitle: v.brandTitle,
-                    code: v.itemCode,
+                    code: v.code,
                     modelTitle: v.modelTitle,
                     src: v.image,
                     price: v.price,
                     quantity: v.quantity,
-                    isSelected: _this2.state.isSelected,
                     selectItemCode: _this2.state.selectItemCode,
                     cardMode: _this2.state.cardMode,
                     cbSelect: _this2.cbSelect,
@@ -32096,11 +32089,13 @@ var ProductCardEditComponent = function (_React$Component) {
             _this.setState({ currentQuantity: EO.target.value });
         }, _this.save = function () {
             var obj = {
-                code: _this.props.infoItem.itemCode,
+                code: _this.props.infoItem.code,
                 brandTitle: _this.state.currentName,
+                selectItemCode: _this.props.infoItem,
+                modelTitle: _this.props.infoItem.modelTitle,
                 price: _this.state.currentPrice,
                 image: _this.state.currentURL, quantity: _this.state.currentQuantity };
-            _this.props.cbSave(_this.props.infoItem.itemCode, obj);
+            _this.props.cbSave(_this.props.infoItem.code, obj);
         }, _this.cancel = function () {
 
             _this.props.cbCancel();
@@ -32118,7 +32113,7 @@ var ProductCardEditComponent = function (_React$Component) {
                     'span',
                     { className: 'input-group-text' },
                     'ID: ',
-                    this.props.infoItem.itemCode
+                    this.props.infoItem.code
                 ),
                 _react2.default.createElement('input', { type: 'text', 'data-tag': 'tag', 'aria-label': 'Name', value: this.state.currentName, onChange: this.changeName, className: 'form-control' }),
                 _react2.default.createElement('input', { type: 'number', 'aria-label': 'Price', value: this.state.currentPrice, onChange: this.changePrice, className: 'form-control' }),
