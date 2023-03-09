@@ -13,3 +13,17 @@
     min-width: 0;
 }
 
+.control_block {
+    display: flex;
+    flex-flow: row;
+    width: 500px;
+
+
+}
+
+.error_msg {
+    margin-left: 10px;
+    text-align: center;
+    color: red;
+
+}

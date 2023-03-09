@@ -10,7 +10,10 @@ import ProductCardEditComponent from "./ProductCardEditComponent";
 import ProductCardAddComponent from "./ProductCardAddComponent";
 
 class IshopComponent extends React.Component {
+    constructor(props) {
+        super(props);
 
+    }
     static propTypes = {
 
         cars:PropTypes.arrayOf(
@@ -30,8 +33,65 @@ class IshopComponent extends React.Component {
         selectItemCode:null,
         defaultCards:this.props.cars,
         cardMode: 0,  /* edit -редактирование, show - показать текущую карточку, add - добавление*/
-
+        currentName:null,
+        currentModelName:null,
+        currentPrice:null,
+        currentURL:null,
+        currentQuantity:null,
+        nameError:"",
+        modelNameError:"",
+        priceError:"",
+        URLError:"",
+        quantityError:"",
+        valid:true
     };
+
+
+    changeName = (EO) => {
+        console.log(EO.target.value)
+        this.setState({currentName: EO.target.value},this.validCard)
+
+    }
+    changeModelName = (EO) => {
+
+        this.setState({currentModelName: EO.target.value},this.validCard)
+
+    }
+    changePrice = (EO) => {
+
+        this.setState({currentPrice:parseInt(EO.target.value)},this.validCard)
+
+    }
+
+    changeURL = (EO) => {
+
+        this.setState({currentURL: EO.target.value},this.validCard)
+        console.log(this.state.currentURL)
+    }
+
+    changeQuantity = (EO) => {
+
+        this.setState({currentQuantity:parseInt(EO.target.value)},this.validCard)
+
+    }
+    validCard = () =>{
+        let nameError="";
+        let modelNameError="";
+        let priceError="";
+        let URLError="";
+        let quantityError="";
+        let valid;
+
+        if (this.state.currentName === null) nameError = "Enter brand name";
+        if (this.state.currentModelName === null) modelNameError = "Enter model name";
+        if (isNaN(this.state.currentPrice)||this.state.currentPrice === null) priceError = "Enter number";
+        if (this.state.currentURL === null) URLError = "Enter URL";
+        if (isNaN(this.state.currentQuantity)||this.state.currentQuantity === null) quantityError = "Enter number";
+
+        valid = (!nameError) && (!modelNameError) && (!priceError) && (!URLError) && (!quantityError)
+
+        this.setState({nameError,modelNameError,priceError,URLError,quantityError,valid})
+    }
 
 
     cbSelect = (code) =>{
@@ -92,7 +152,10 @@ class IshopComponent extends React.Component {
 
 
     };
-
+    handleClick = () => {
+        this.clickAdd()
+        this.validCard()
+    }
 
     render() {
           let ItemCard = this.state.defaultCards.map( (v,index) =>
@@ -141,7 +204,7 @@ class IshopComponent extends React.Component {
                     <tbody>{ItemCard}</tbody>
 
                 </table>
-                <button type={"button"} className={"btn btn-warning"} onClick={this.clickAdd}>New product</button>
+                <button type={"button"} className={"btn btn-warning"} onClick={this.handleClick}>New product</button>
 
                 {(this.state.selectItemCode && this.state.cardMode === 'show') &&
                     <ProductCardComponent infoItem = {ItemInfo}  />
@@ -156,8 +219,25 @@ class IshopComponent extends React.Component {
                 }
                 {( this.state.cardMode === 'add') &&
                     <ProductCardAddComponent  stateItem = {ItemState}
+                                              currentName = {this.state.currentName}
+                                              currentModelName = {this.state.currentModelName}
+                                              currentPrice = {this.state.currentPrice}
+                                              currentUrl = {this.state.currentURL}
+                                              currentQuantity = {this.state.currentQuantity}
+                                              valid = {this.state.valid}
+                                              nameError={this.state.nameError}
+                                              modelNameError={this.state.modelNameError}
+                                              priceError={this.state.priceError}
+                                              URLError={this.state.URLError}
+                                              quantityError={this.state.quantityError}
+                                              changeName ={this.changeName}
+                                              changeModelName ={this.changeModelName}
+                                              changePrice={this.changePrice}
+                                              changeURL ={this.changeURL}
+                                              changeQuantity ={this.changeQuantity}
                                               cbSaveAdd={this.cbSaveAdd}
                                               cbCancel={this.cbCancel}
+
                     />
                 }
             </div>

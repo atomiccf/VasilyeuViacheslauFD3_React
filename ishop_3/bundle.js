@@ -30587,38 +30587,97 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var IshopComponent = function (_React$Component) {
     _inherits(IshopComponent, _React$Component);
 
-    function IshopComponent() {
-        var _ref;
-
-        var _temp, _this, _ret;
-
+    function IshopComponent(props) {
         _classCallCheck(this, IshopComponent);
 
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
+        var _this = _possibleConstructorReturn(this, (IshopComponent.__proto__ || Object.getPrototypeOf(IshopComponent)).call(this, props));
 
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = IshopComponent.__proto__ || Object.getPrototypeOf(IshopComponent)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+        _this.state = {
             selectItemCode: null,
             defaultCards: _this.props.cars,
-            cardMode: 0 /* edit -редактирование, show - показать текущую карточку, add - добавление*/
+            cardMode: 0, /* edit -редактирование, show - показать текущую карточку, add - добавление*/
+            currentName: null,
+            currentModelName: null,
+            currentPrice: null,
+            currentURL: null,
+            currentQuantity: null,
+            nameError: "",
+            modelNameError: "",
+            priceError: "",
+            URLError: "",
+            quantityError: "",
+            valid: true
+        };
 
-        }, _this.cbSelect = function (code) {
+        _this.changeName = function (EO) {
+            console.log(EO.target.value);
+            _this.setState({ currentName: EO.target.value }, _this.validCard);
+        };
+
+        _this.changeModelName = function (EO) {
+
+            _this.setState({ currentModelName: EO.target.value }, _this.validCard);
+        };
+
+        _this.changePrice = function (EO) {
+
+            _this.setState({ currentPrice: parseInt(EO.target.value) }, _this.validCard);
+        };
+
+        _this.changeURL = function (EO) {
+
+            _this.setState({ currentURL: EO.target.value }, _this.validCard);
+            console.log(_this.state.currentURL);
+        };
+
+        _this.changeQuantity = function (EO) {
+
+            _this.setState({ currentQuantity: parseInt(EO.target.value) }, _this.validCard);
+        };
+
+        _this.validCard = function () {
+            var nameError = "";
+            var modelNameError = "";
+            var priceError = "";
+            var URLError = "";
+            var quantityError = "";
+            var valid = void 0;
+
+            if (_this.state.currentName === null) nameError = "Enter brand name";
+            if (_this.state.currentModelName === null) modelNameError = "Enter model name";
+            if (isNaN(_this.state.currentPrice) || _this.state.currentPrice === null) priceError = "Enter number";
+            if (_this.state.currentURL === null) URLError = "Enter URL";
+            if (isNaN(_this.state.currentQuantity) || _this.state.currentQuantity === null) quantityError = "Enter number";
+
+            valid = !nameError && !modelNameError && !priceError && !URLError && !quantityError;
+
+            _this.setState({ nameError: nameError, modelNameError: modelNameError, priceError: priceError, URLError: URLError, quantityError: quantityError, valid: valid });
+        };
+
+        _this.cbSelect = function (code) {
 
             _this.setState({ selectItemCode: code, cardMode: 'show' });
-        }, _this.cbEdit = function (code) {
+        };
+
+        _this.cbEdit = function (code) {
 
             _this.setState({ selectItemCode: code, cardMode: 'edit' });
-        }, _this.clickAdd = function () {
+        };
+
+        _this.clickAdd = function () {
 
             _this.setState({ cardMode: 'add' });
-        }, _this.cbDelete = function (code) {
+        };
+
+        _this.cbDelete = function (code) {
 
             _this.setState({ defaultCards: _this.state.defaultCards.filter(function (item) {
 
                     return item.code !== code;
                 }) });
-        }, _this.cbSave = function (code, obj) {
+        };
+
+        _this.cbSave = function (code, obj) {
 
             _this.setState({ defaultCards: _this.state.defaultCards.map(function (item) {
                     if (item.code === code) {
@@ -30629,13 +30688,24 @@ var IshopComponent = function (_React$Component) {
                         return item;
                     }
                 }) });
-        }, _this.cbSaveAdd = function (obj) {
+        };
+
+        _this.cbSaveAdd = function (obj) {
 
             _this.setState({ defaultCards: [].concat(_toConsumableArray(_this.state.defaultCards), [obj]) });
-        }, _this.cbCancel = function () {
+        };
+
+        _this.cbCancel = function () {
 
             _this.setState({ cardMode: 0 });
-        }, _temp), _possibleConstructorReturn(_this, _ret);
+        };
+
+        _this.handleClick = function () {
+            _this.clickAdd();
+            _this.validCard();
+        };
+
+        return _this;
     }
 
     _createClass(IshopComponent, [{
@@ -30730,7 +30800,7 @@ var IshopComponent = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'button',
-                    { type: "button", className: "btn btn-warning", onClick: this.clickAdd },
+                    { type: "button", className: "btn btn-warning", onClick: this.handleClick },
                     'New product'
                 ),
                 this.state.selectItemCode && this.state.cardMode === 'show' && _react2.default.createElement(_ProductCardComponent2.default, { infoItem: ItemInfo }),
@@ -30739,8 +30809,25 @@ var IshopComponent = function (_React$Component) {
                     cbCancel: this.cbCancel
                 }),
                 this.state.cardMode === 'add' && _react2.default.createElement(_ProductCardAddComponent2.default, { stateItem: ItemState,
+                    currentName: this.state.currentName,
+                    currentModelName: this.state.currentModelName,
+                    currentPrice: this.state.currentPrice,
+                    currentUrl: this.state.currentURL,
+                    currentQuantity: this.state.currentQuantity,
+                    valid: this.state.valid,
+                    nameError: this.state.nameError,
+                    modelNameError: this.state.modelNameError,
+                    priceError: this.state.priceError,
+                    URLError: this.state.URLError,
+                    quantityError: this.state.quantityError,
+                    changeName: this.changeName,
+                    changeModelName: this.changeModelName,
+                    changePrice: this.changePrice,
+                    changeURL: this.changeURL,
+                    changeQuantity: this.changeQuantity,
                     cbSaveAdd: this.cbSaveAdd,
                     cbCancel: this.cbCancel
+
                 })
             );
         }
@@ -32092,20 +32179,39 @@ var ProductCardEditComponent = function (_React$Component) {
             currentName: _this.props.infoItem.brandTitle,
             currentPrice: _this.props.infoItem.price,
             currentURL: _this.props.infoItem.image,
-            currentQuantity: _this.props.infoItem.quantity
+            currentQuantity: _this.props.infoItem.quantity,
+            nameError: "",
+            priceError: "",
+            URLError: "",
+            quantityError: "",
+            valid: true
+        }, _this.validate = function () {
+            var nameError = "";
+            var priceError = "";
+            var URLError = "";
+            var quantityError = "";
+            var valid = void 0;
 
+            if (_this.state.currentName.length === 0) nameError = "Enter brand name";
+            if (isNaN(_this.state.currentPrice)) priceError = "Enter number";
+            if (_this.state.currentURL.length === 0) URLError = "Enter URL";
+            if (isNaN(_this.state.currentQuantity)) quantityError = "Enter number";
+
+            valid = !nameError && !priceError && !URLError && !quantityError;
+
+            _this.setState({ nameError: nameError, priceError: priceError, URLError: URLError, quantityError: quantityError, valid: valid });
         }, _this.changeName = function (EO) {
 
-            _this.setState({ currentName: EO.target.value });
+            _this.setState({ currentName: EO.target.value }, _this.validate);
         }, _this.changePrice = function (EO) {
 
-            _this.setState({ currentPrice: EO.target.value });
+            _this.setState({ currentPrice: parseInt(EO.target.value) }, _this.validate);
         }, _this.changeURL = function (EO) {
 
-            _this.setState({ currentURL: EO.target.value });
+            _this.setState({ currentURL: EO.target.value }, _this.validate);
         }, _this.changeQuantity = function (EO) {
 
-            _this.setState({ currentQuantity: EO.target.value });
+            _this.setState({ currentQuantity: parseInt(EO.target.value) }, _this.validate);
         }, _this.save = function () {
             var obj = {
                 code: _this.props.infoItem.code,
@@ -32134,13 +32240,52 @@ var ProductCardEditComponent = function (_React$Component) {
                     'ID: ',
                     this.props.infoItem.code
                 ),
-                _react2.default.createElement('input', { type: 'text', 'data-tag': 'tag', 'aria-label': 'Name', value: this.state.currentName, onChange: this.changeName, className: 'form-control' }),
-                _react2.default.createElement('input', { type: 'number', 'aria-label': 'Price', value: this.state.currentPrice, onChange: this.changePrice, className: 'form-control' }),
-                _react2.default.createElement('input', { type: 'text', 'aria-label': 'URL', value: this.state.currentURL, onChange: this.changeURL, className: 'form-control' }),
-                _react2.default.createElement('input', { type: 'text', 'aria-label': 'Quantity', value: this.state.currentQuantity, onChange: this.changeQuantity, className: 'form-control' }),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'control_block' },
+                    _react2.default.createElement('input', { type: 'text', 'data-tag': 'tag', 'aria-label': 'Name', value: this.state.currentName, onChange: this.changeName, className: 'form-control' }),
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'error_msg' },
+                        this.state.nameError
+                    ),
+                    ' '
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'control_block' },
+                    ' ',
+                    _react2.default.createElement('input', { type: 'number', 'aria-label': 'Price', value: this.state.currentPrice, onChange: this.changePrice, className: 'form-control' }),
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'error_msg' },
+                        this.state.priceError
+                    ),
+                    ' '
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'control_block' },
+                    _react2.default.createElement('input', { type: 'text', 'aria-label': 'URL', value: this.state.currentURL, onChange: this.changeURL, className: 'form-control' }),
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'error_msg' },
+                        this.state.URLError
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'control_block' },
+                    _react2.default.createElement('input', { type: 'number', 'aria-label': 'Quantity', value: this.state.currentQuantity, onChange: this.changeQuantity, className: 'form-control' }),
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'error_msg' },
+                        this.state.quantityError
+                    )
+                ),
                 _react2.default.createElement(
                     'button',
-                    { className: 'btn btn-primary', onClick: this.save },
+                    { className: 'btn btn-primary', disabled: !this.state.valid, onClick: this.save },
                     'Save'
                 ),
                 _react2.default.createElement(
@@ -32206,12 +32351,16 @@ var ProductCardAddComponent = function (_React$Component) {
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ProductCardAddComponent.__proto__ || Object.getPrototypeOf(ProductCardAddComponent)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
             code: null,
-            currentName: null,
-            currentModelName: null,
-            currentPrice: null,
-            currentURL: null,
-            currentQuantity: null
-
+            currentName: _this.props.currentName,
+            currentModelName: _this.props.currentModelName,
+            currentPrice: _this.props.currentPrice,
+            currentURL: _this.props.currentUrl,
+            currentQuantity: _this.props.currentQuantity,
+            nameError: _this.props.nameError,
+            modelNameError: _this.props.modelNameError,
+            priceError: _this.props.priceError,
+            URLError: _this.props.URLError,
+            quantityError: _this.props.quantityError
         }, _this.generateCode = function () {
 
             _this.props.stateItem.forEach(function (elem) {
@@ -32219,30 +32368,15 @@ var ProductCardAddComponent = function (_React$Component) {
                 count += elem.code;
                 return _this.state.code = count + 1;
             });
-        }, _this.changeName = function (EO) {
-
-            _this.setState({ currentName: EO.target.value });
-        }, _this.changeModelName = function (EO) {
-
-            _this.setState({ currentModelName: EO.target.value });
-        }, _this.changePrice = function (EO) {
-
-            _this.setState({ currentPrice: EO.target.value });
-        }, _this.changeURL = function (EO) {
-
-            _this.setState({ currentURL: EO.target.value });
-        }, _this.changeQuantity = function (EO) {
-
-            _this.setState({ currentQuantity: EO.target.value });
         }, _this.add = function () {
             var obj = {
                 key: _this.state.code,
                 code: _this.state.code,
-                brandTitle: _this.state.currentName,
+                brandTitle: _this.props.currentName,
                 selectItemCode: _this.state.code,
-                modelTitle: _this.state.currentModelName,
-                price: _this.state.currentPrice,
-                image: _this.state.currentURL, quantity: _this.state.currentQuantity };
+                modelTitle: _this.props.currentModelName,
+                price: _this.props.currentPrice,
+                image: _this.props.currentUrl, quantity: _this.props.currentQuantity };
             _this.props.cbSaveAdd(obj);
         }, _this.handleClick = function () {
             _this.generateCode();
@@ -32260,14 +32394,59 @@ var ProductCardAddComponent = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'input-group' },
-                _react2.default.createElement('input', { type: 'text', placeholder: 'Brand', 'aria-label': 'Name', defaultValue: this.state.currentName, onChange: this.changeName, className: 'form-control' }),
-                _react2.default.createElement('input', { type: 'text', placeholder: 'ModelName', 'aria-label': 'Name', defaultValue: this.state.currentModelName, onChange: this.changeModelName, className: 'form-control' }),
-                _react2.default.createElement('input', { type: 'number', placeholder: 'Price', 'aria-label': 'Price', defaultValue: this.state.currentPrice, onChange: this.changePrice, className: 'form-control' }),
-                _react2.default.createElement('input', { type: 'text', placeholder: 'URL', 'aria-label': 'URL', defaultValue: this.state.currentURL, onChange: this.changeURL, className: 'form-control' }),
-                _react2.default.createElement('input', { type: 'text', placeholder: 'Quantity', 'aria-label': 'Quantity', defaultValue: this.state.currentQuantity, onChange: this.changeQuantity, className: 'form-control' }),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'control_block' },
+                    _react2.default.createElement('input', { type: 'text', placeholder: 'Brand', 'aria-label': 'Name', defaultValue: this.state.currentName, onChange: this.props.changeName, className: 'form-control' }),
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'error_msg' },
+                        this.props.nameError
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'control_block' },
+                    _react2.default.createElement('input', { type: 'text', placeholder: 'ModelName', 'aria-label': 'Name', defaultValue: this.state.currentModelName, onChange: this.props.changeModelName, className: 'form-control' }),
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'error_msg' },
+                        this.props.modelNameError
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'control_block' },
+                    _react2.default.createElement('input', { type: 'number', placeholder: 'Price', 'aria-label': 'Price', defaultValue: this.state.currentPrice, onChange: this.props.changePrice, className: 'form-control' }),
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'error_msg' },
+                        this.props.priceError
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'control_block' },
+                    _react2.default.createElement('input', { type: 'text', placeholder: 'URL', 'aria-label': 'URL', defaultValue: this.state.currentURL, onChange: this.props.changeURL, className: 'form-control' }),
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'error_msg' },
+                        this.props.URLError
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'control_block' },
+                    _react2.default.createElement('input', { type: 'number', placeholder: 'Quantity', 'aria-label': 'Quantity', defaultValue: this.state.currentQuantity, onChange: this.props.changeQuantity, className: 'form-control' }),
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'error_msg' },
+                        this.props.quantityError
+                    )
+                ),
                 _react2.default.createElement(
                     'button',
-                    { className: 'btn btn-primary', onClick: this.handleClick },
+                    { className: 'btn btn-primary', disabled: !this.props.valid, onClick: this.handleClick },
                     'Add'
                 ),
                 _react2.default.createElement(

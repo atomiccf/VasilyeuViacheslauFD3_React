@@ -10,7 +10,7 @@ img {
 }.input-group {
     display: flex;
     flex-flow: column;
-    width: 500px;
+    width: 600px;
 
 
 }
@@ -22,7 +22,20 @@ img {
     min-width: 0;
 }
 
-.input-group {
+.control_block {
+    display: flex;
+    flex-flow: row;
+    width: 500px;
+
+
+}
+
+.error_msg {
+    margin-left: 10px;
+    text-align: center;
+    color: red;
+
+}.input-group {
     display: flex;
     flex-flow: column;
     width: 500px;
@@ -37,5 +50,18 @@ img {
     min-width: 0;
 }
 
+.control_block {
+    display: flex;
+    flex-flow: row;
+    width: 500px;
 
+
+}
+
+.error_msg {
+    margin-left: 10px;
+    text-align: center;
+    color: red;
+
+}
 /*# sourceMappingURL=bundle.css.map*/
