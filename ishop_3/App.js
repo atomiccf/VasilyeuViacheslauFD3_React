@@ -4,12 +4,15 @@ import ReactDOM from 'react-dom';
 import IshopComponent from './components/IshopComponent';
 
 const shopTitle = 'Clean Deal Shop'
-let carsArr=require('./cars.json');
+let carsArr= require('./cars.json');
 
 
 ReactDOM.render(
+    <IshopComponent
+        title={shopTitle}
+        cars={carsArr}
 
-    React.createElement(IshopComponent, {cars:carsArr,title:shopTitle} ),
+    />,
     document.getElementById('app')
 );
 

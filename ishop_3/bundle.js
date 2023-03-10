@@ -471,7 +471,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var shopTitle = 'Clean Deal Shop';
 var carsArr = __webpack_require__(34);
 
-_reactDom2.default.render(_react2.default.createElement(_IshopComponent2.default, { cars: carsArr, title: shopTitle }), document.getElementById('app'));
+_reactDom2.default.render(_react2.default.createElement(_IshopComponent2.default, {
+    title: shopTitle,
+    cars: carsArr
+
+}), document.getElementById('app'));
 
 /***/ }),
 /* 9 */
