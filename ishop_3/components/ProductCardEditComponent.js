@@ -15,7 +15,8 @@ state = {
     priceError:"",
     URLError:"",
     quantityError:"",
-    valid:true
+    valid:true,
+    edit:true,
 }
 
 
@@ -26,7 +27,13 @@ validate = () =>{
     let quantityError="";
     let valid;
 
-    if (this.state.currentName.length === 0) nameError = "Enter brand name";
+    if (this.state.currentName.length === 0) {
+
+        nameError = "Enter brand name";
+
+        this.props.cbDisable(this.state.edit)
+
+    }
     if (isNaN(this.state.currentPrice)) priceError = "Enter number";
     if (this.state.currentURL.length === 0) URLError = "Enter URL";
     if (isNaN(this.state.currentQuantity)) quantityError = "Enter number";
@@ -37,24 +44,24 @@ validate = () =>{
 }
 
 changeName = (EO) => {
-
-this.setState({currentName: EO.target.value},this.validate)
+    this.setState({edit:false})
+    this.setState({currentName: EO.target.value},this.validate)
 
 }
     changePrice = (EO) => {
-
+        this.setState({edit:false})
         this.setState({currentPrice: parseInt(EO.target.value)},this.validate)
 
     }
 
     changeURL = (EO) => {
-
+        this.setState({edit:false})
         this.setState({currentURL: EO.target.value},this.validate)
 
     }
 
     changeQuantity = (EO) => {
-
+        this.setState({edit:false})
         this.setState({currentQuantity: parseInt(EO.target.value)},this.validate)
 
     }
@@ -67,18 +74,19 @@ this.setState({currentName: EO.target.value},this.validate)
             modelTitle:this.props.infoItem.modelTitle,
             price:this.state.currentPrice,
             image:this.state.currentURL,quantity:this.state.currentQuantity};
-        this.props.cbSave(this.props.infoItem.code, obj)
+        this.setState({edit:true})
+        this.props.cbSave(this.props.infoItem.code, obj,this.state.edit)
 
     }
     cancel = () => {
-
-    this.props.cbCancel()
+    this.setState({edit:true})
+    this.props.cbCancel(this.state.edit)
 
     }
     render () {
 
         return(
-
+            (this.props.infoItem)&&
             <div className="input-group">
               <span className="input-group-text">ID: {this.props.infoItem.code}</span>
                 <div className="control_block"><input type="text" data-tag='tag' aria-label="Name" value={this.state.currentName} onChange={this.changeName}  className="form-control"/>

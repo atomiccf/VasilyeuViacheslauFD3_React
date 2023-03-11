@@ -41,8 +41,8 @@ class ProductComponent extends React.Component{
                 <td>{this.props.price + '$'}</td>
                 <td><img alt={'car'} src={this.props.src}/></td>
                 <td>{this.props.quantity}</td>
-                <td> <button type={"button"} className={"btn btn-warning"} onClick={this.edit}>Edit</button></td>
-                <td> <button type={"button"} className={"btn btn-warning"} onClick={this.delete}>Delete</button></td>
+                <td> <button disabled={!this.props.edit} type={"button"} className={"btn btn-warning"} onClick={this.edit}>Edit</button></td>
+                <td> <button disabled={!this.props.edit} type={"button"} className={"btn btn-warning"} onClick={this.delete}>Delete</button></td>
             </tr>
 
         );

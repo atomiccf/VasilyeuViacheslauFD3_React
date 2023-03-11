@@ -30610,7 +30610,8 @@ var IshopComponent = function (_React$Component) {
             priceError: "",
             URLError: "",
             quantityError: "",
-            valid: true
+            valid: true,
+            edit: true
         };
 
         _this.changeName = function (EO) {
@@ -30646,7 +30647,7 @@ var IshopComponent = function (_React$Component) {
             var URLError = "";
             var quantityError = "";
             var valid = void 0;
-
+            _this.setState({ edit: false });
             if (_this.state.currentName === null) nameError = "Enter brand name";
             if (_this.state.currentModelName === null) modelNameError = "Enter model name";
             if (isNaN(_this.state.currentPrice) || _this.state.currentPrice === null) priceError = "Enter number";
@@ -30654,7 +30655,6 @@ var IshopComponent = function (_React$Component) {
             if (isNaN(_this.state.currentQuantity) || _this.state.currentQuantity === null) quantityError = "Enter number";
 
             valid = !nameError && !modelNameError && !priceError && !URLError && !quantityError;
-
             _this.setState({ nameError: nameError, modelNameError: modelNameError, priceError: priceError, URLError: URLError, quantityError: quantityError, valid: valid });
         };
 
@@ -30674,14 +30674,14 @@ var IshopComponent = function (_React$Component) {
         };
 
         _this.cbDelete = function (code) {
-
+            _this.setState({ cardMode: 0 });
             _this.setState({ defaultCards: _this.state.defaultCards.filter(function (item) {
 
                     return item.code !== code;
                 }) });
         };
 
-        _this.cbSave = function (code, obj) {
+        _this.cbSave = function (code, obj, bool) {
 
             _this.setState({ defaultCards: _this.state.defaultCards.map(function (item) {
                     if (item.code === code) {
@@ -30692,15 +30692,25 @@ var IshopComponent = function (_React$Component) {
                         return item;
                     }
                 }) });
+            _this.setState({ edit: true });
+            console.log(_this.state.edit);
+            _this.setState({ cardMode: 0 });
         };
 
-        _this.cbSaveAdd = function (obj) {
+        _this.cbDisable = function (bool) {
 
+            _this.setState({ edit: bool });
+        };
+
+        _this.cbSaveAdd = function (obj, bool) {
+
+            _this.setState({ edit: true });
             _this.setState({ defaultCards: [].concat(_toConsumableArray(_this.state.defaultCards), [obj]) });
+            _this.setState({ cardMode: 0 });
         };
 
-        _this.cbCancel = function () {
-
+        _this.cbCancel = function (bool) {
+            _this.setState({ edit: true });
             _this.setState({ cardMode: 0 });
         };
 
@@ -30717,8 +30727,10 @@ var IshopComponent = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            console.log(this.state.edit);
             var ItemCard = this.state.defaultCards.map(function (v, index) {
                 return _react2.default.createElement(_ProductComponent2.default, { index: index + 1,
+                    edit: _this2.state.edit,
                     key: v.code,
                     brandTitle: v.brandTitle,
                     code: v.code,
@@ -30804,13 +30816,15 @@ var IshopComponent = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'button',
-                    { type: "button", className: "btn btn-warning", onClick: this.handleClick },
+                    { disabled: !this.state.edit, type: "button", className: "btn btn-warning", onClick: this.handleClick },
                     'New product'
                 ),
-                this.state.selectItemCode && this.state.cardMode === 'show' && _react2.default.createElement(_ProductCardComponent2.default, { infoItem: ItemInfo }),
+                this.state.selectItemCode && this.state.cardMode === 'show' && _react2.default.createElement(_ProductCardComponent2.default, { infoItem: ItemInfo,
+                    selectItemCode: this.state.selectItemCode }),
                 this.state.selectItemCode && this.state.cardMode === 'edit' && _react2.default.createElement(_ProductCardEditComponent2.default, { key: this.state.selectItemCode, infoItem: ItemInfo,
                     cbSave: this.cbSave,
-                    cbCancel: this.cbCancel
+                    cbCancel: this.cbCancel,
+                    cbDisable: this.cbDisable
                 }),
                 this.state.cardMode === 'add' && _react2.default.createElement(_ProductCardAddComponent2.default, { stateItem: ItemState,
                     currentName: this.state.currentName,
@@ -32040,7 +32054,7 @@ var ProductComponent = function (_React$Component) {
                     " ",
                     _react2.default.createElement(
                         "button",
-                        { type: "button", className: "btn btn-warning", onClick: this.edit },
+                        { disabled: !this.props.edit, type: "button", className: "btn btn-warning", onClick: this.edit },
                         "Edit"
                     )
                 ),
@@ -32050,7 +32064,7 @@ var ProductComponent = function (_React$Component) {
                     " ",
                     _react2.default.createElement(
                         "button",
-                        { type: "button", className: "btn btn-warning", onClick: this.delete },
+                        { disabled: !this.props.edit, type: "button", className: "btn btn-warning", onClick: this.delete },
                         "Delete"
                     )
                 )
@@ -32188,7 +32202,8 @@ var ProductCardEditComponent = function (_React$Component) {
             priceError: "",
             URLError: "",
             quantityError: "",
-            valid: true
+            valid: true,
+            edit: true
         }, _this.validate = function () {
             var nameError = "";
             var priceError = "";
@@ -32196,7 +32211,12 @@ var ProductCardEditComponent = function (_React$Component) {
             var quantityError = "";
             var valid = void 0;
 
-            if (_this.state.currentName.length === 0) nameError = "Enter brand name";
+            if (_this.state.currentName.length === 0) {
+
+                nameError = "Enter brand name";
+
+                _this.props.cbDisable(_this.state.edit);
+            }
             if (isNaN(_this.state.currentPrice)) priceError = "Enter number";
             if (_this.state.currentURL.length === 0) URLError = "Enter URL";
             if (isNaN(_this.state.currentQuantity)) quantityError = "Enter number";
@@ -32205,16 +32225,16 @@ var ProductCardEditComponent = function (_React$Component) {
 
             _this.setState({ nameError: nameError, priceError: priceError, URLError: URLError, quantityError: quantityError, valid: valid });
         }, _this.changeName = function (EO) {
-
+            _this.setState({ edit: false });
             _this.setState({ currentName: EO.target.value }, _this.validate);
         }, _this.changePrice = function (EO) {
-
+            _this.setState({ edit: false });
             _this.setState({ currentPrice: parseInt(EO.target.value) }, _this.validate);
         }, _this.changeURL = function (EO) {
-
+            _this.setState({ edit: false });
             _this.setState({ currentURL: EO.target.value }, _this.validate);
         }, _this.changeQuantity = function (EO) {
-
+            _this.setState({ edit: false });
             _this.setState({ currentQuantity: parseInt(EO.target.value) }, _this.validate);
         }, _this.save = function () {
             var obj = {
@@ -32224,10 +32244,11 @@ var ProductCardEditComponent = function (_React$Component) {
                 modelTitle: _this.props.infoItem.modelTitle,
                 price: _this.state.currentPrice,
                 image: _this.state.currentURL, quantity: _this.state.currentQuantity };
-            _this.props.cbSave(_this.props.infoItem.code, obj);
+            _this.setState({ edit: true });
+            _this.props.cbSave(_this.props.infoItem.code, obj, _this.state.edit);
         }, _this.cancel = function () {
-
-            _this.props.cbCancel();
+            _this.setState({ edit: true });
+            _this.props.cbCancel(_this.state.edit);
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
@@ -32235,7 +32256,7 @@ var ProductCardEditComponent = function (_React$Component) {
         key: 'render',
         value: function render() {
 
-            return _react2.default.createElement(
+            return this.props.infoItem && _react2.default.createElement(
                 'div',
                 { className: 'input-group' },
                 _react2.default.createElement(

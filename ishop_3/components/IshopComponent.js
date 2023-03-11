@@ -43,7 +43,8 @@ class IshopComponent extends React.Component {
         priceError:"",
         URLError:"",
         quantityError:"",
-        valid:true
+        valid:true,
+        edit:true,
     };
 
 
@@ -81,7 +82,7 @@ class IshopComponent extends React.Component {
         let URLError="";
         let quantityError="";
         let valid;
-
+        this.setState({edit:false})
         if (this.state.currentName === null) nameError = "Enter brand name";
         if (this.state.currentModelName === null) modelNameError = "Enter model name";
         if (isNaN(this.state.currentPrice)||this.state.currentPrice === null) priceError = "Enter number";
@@ -89,7 +90,6 @@ class IshopComponent extends React.Component {
         if (isNaN(this.state.currentQuantity)||this.state.currentQuantity === null) quantityError = "Enter number";
 
         valid = (!nameError) && (!modelNameError) && (!priceError) && (!URLError) && (!quantityError)
-
         this.setState({nameError,modelNameError,priceError,URLError,quantityError,valid})
     }
 
@@ -111,7 +111,7 @@ class IshopComponent extends React.Component {
     };
 
     cbDelete = (code) =>{
-
+        this.setState({cardMode:0})
         this.setState({defaultCards:this.state.defaultCards.filter(item =>{
 
                 return item.code !== code;
@@ -134,20 +134,26 @@ class IshopComponent extends React.Component {
                 }
 
             })})
-
+        this.setState({edit: true})
+        console.log(this.state.edit)
+        this.setState({cardMode:0})
 
     };
+    cbDisable = (bool) => {
 
+        this.setState({edit: bool})
+
+    }
     cbSaveAdd = (obj) =>{
 
-
+        this.setState({edit: true})
         this.setState({defaultCards: [...this.state.defaultCards, obj]})
-
+        this.setState({cardMode:0})
 
     };
 
-    cbCancel = () =>{
-
+    cbCancel = (bool) =>{
+        this.setState({edit: true})
         this.setState({cardMode:0})
 
 
@@ -158,8 +164,10 @@ class IshopComponent extends React.Component {
     }
 
     render() {
+        console.log(this.state.edit)
           let ItemCard = this.state.defaultCards.map( (v,index) =>
             <ProductComponent index={index+1}
+                            edit = {this.state.edit}
                             key={v.code}
                             brandTitle={v.brandTitle}
                             code={v.code}
@@ -204,10 +212,11 @@ class IshopComponent extends React.Component {
                     <tbody>{ItemCard}</tbody>
 
                 </table>
-                <button type={"button"} className={"btn btn-warning"} onClick={this.handleClick}>New product</button>
+                <button disabled={!this.state.edit} type={"button"} className={"btn btn-warning"} onClick={this.handleClick}>New product</button>
 
                 {(this.state.selectItemCode && this.state.cardMode === 'show') &&
-                    <ProductCardComponent infoItem = {ItemInfo}  />
+                    <ProductCardComponent infoItem = {ItemInfo}
+                                          selectItemCode={this.state.selectItemCode}/>
                 }
 
 
@@ -215,6 +224,7 @@ class IshopComponent extends React.Component {
                     <ProductCardEditComponent key = {this.state.selectItemCode} infoItem = {ItemInfo}
                                               cbSave={this.cbSave}
                                               cbCancel={this.cbCancel}
+                                              cbDisable={this.cbDisable}
                     />
                 }
                 {( this.state.cardMode === 'add') &&
