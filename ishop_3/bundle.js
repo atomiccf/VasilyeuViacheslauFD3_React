@@ -30681,7 +30681,7 @@ var IshopComponent = function (_React$Component) {
                 }) });
         };
 
-        _this.cbSave = function (code, obj, bool) {
+        _this.cbSave = function (code, obj) {
 
             _this.setState({ defaultCards: _this.state.defaultCards.map(function (item) {
                     if (item.code === code) {
@@ -30693,7 +30693,6 @@ var IshopComponent = function (_React$Component) {
                     }
                 }) });
             _this.setState({ edit: true });
-            console.log(_this.state.edit);
             _this.setState({ cardMode: 0 });
         };
 
@@ -30702,7 +30701,7 @@ var IshopComponent = function (_React$Component) {
             _this.setState({ edit: bool });
         };
 
-        _this.cbSaveAdd = function (obj, bool) {
+        _this.cbSaveAdd = function (obj) {
 
             _this.setState({ edit: true });
             _this.setState({ defaultCards: [].concat(_toConsumableArray(_this.state.defaultCards), [obj]) });
@@ -32214,28 +32213,36 @@ var ProductCardEditComponent = function (_React$Component) {
             if (_this.state.currentName.length === 0) {
 
                 nameError = "Enter brand name";
-
                 _this.props.cbDisable(_this.state.edit);
             }
-            if (isNaN(_this.state.currentPrice)) priceError = "Enter number";
-            if (_this.state.currentURL.length === 0) URLError = "Enter URL";
-            if (isNaN(_this.state.currentQuantity)) quantityError = "Enter number";
+            if (isNaN(_this.state.currentPrice)) {
+                priceError = "Enter number";
+                _this.props.cbDisable(_this.state.edit);
+            }
+            if (_this.state.currentURL.length === 0) {
+                URLError = "Enter URL";
+                _this.props.cbDisable(_this.state.edit);
+            }
+            if (isNaN(_this.state.currentQuantity)) {
+                quantityError = "Enter number";
+                _this.props.cbDisable(_this.state.edit);
+            }
 
             valid = !nameError && !priceError && !URLError && !quantityError;
 
             _this.setState({ nameError: nameError, priceError: priceError, URLError: URLError, quantityError: quantityError, valid: valid });
         }, _this.changeName = function (EO) {
-            _this.setState({ edit: false });
-            _this.setState({ currentName: EO.target.value }, _this.validate);
+
+            _this.setState({ currentName: EO.target.value, edit: false }, _this.validate);
         }, _this.changePrice = function (EO) {
-            _this.setState({ edit: false });
-            _this.setState({ currentPrice: parseInt(EO.target.value) }, _this.validate);
+
+            _this.setState({ currentPrice: parseInt(EO.target.value), edit: false }, _this.validate);
         }, _this.changeURL = function (EO) {
-            _this.setState({ edit: false });
-            _this.setState({ currentURL: EO.target.value }, _this.validate);
+
+            _this.setState({ currentURL: EO.target.value, edit: false }, _this.validate);
         }, _this.changeQuantity = function (EO) {
-            _this.setState({ edit: false });
-            _this.setState({ currentQuantity: parseInt(EO.target.value) }, _this.validate);
+
+            _this.setState({ currentQuantity: parseInt(EO.target.value), edit: false }, _this.validate);
         }, _this.save = function () {
             var obj = {
                 code: _this.props.infoItem.code,

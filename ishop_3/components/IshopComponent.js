@@ -135,7 +135,6 @@ class IshopComponent extends React.Component {
 
             })})
         this.setState({edit: true})
-        console.log(this.state.edit)
         this.setState({cardMode:0})
 
     };

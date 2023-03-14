@@ -30,13 +30,23 @@ validate = () =>{
     if (this.state.currentName.length === 0) {
 
         nameError = "Enter brand name";
-
         this.props.cbDisable(this.state.edit)
 
     }
-    if (isNaN(this.state.currentPrice)) priceError = "Enter number";
-    if (this.state.currentURL.length === 0) URLError = "Enter URL";
-    if (isNaN(this.state.currentQuantity)) quantityError = "Enter number";
+    if (isNaN(this.state.currentPrice)) {
+        priceError = "Enter number" ;
+        this.props.cbDisable(this.state.edit)
+
+    }
+    if (this.state.currentURL.length === 0) {
+        URLError = "Enter URL";
+        this.props.cbDisable(this.state.edit);
+
+    }
+    if (isNaN(this.state.currentQuantity)) {
+        quantityError = "Enter number";
+        this.props.cbDisable(this.state.edit);
+    }
 
     valid = (!nameError) && (!priceError) && (!URLError) && (!quantityError)
 
@@ -44,25 +54,25 @@ validate = () =>{
 }
 
 changeName = (EO) => {
-    this.setState({edit:false})
-    this.setState({currentName: EO.target.value},this.validate)
+
+    this.setState({currentName: EO.target.value,edit:false},this.validate)
 
 }
     changePrice = (EO) => {
-        this.setState({edit:false})
-        this.setState({currentPrice: parseInt(EO.target.value)},this.validate)
+
+        this.setState({currentPrice: parseInt(EO.target.value),edit:false},this.validate)
 
     }
 
     changeURL = (EO) => {
-        this.setState({edit:false})
-        this.setState({currentURL: EO.target.value},this.validate)
+
+        this.setState({currentURL: EO.target.value,edit:false},this.validate)
 
     }
 
     changeQuantity = (EO) => {
-        this.setState({edit:false})
-        this.setState({currentQuantity: parseInt(EO.target.value)},this.validate)
+
+        this.setState({currentQuantity: parseInt(EO.target.value),edit:false},this.validate)
 
     }
 
