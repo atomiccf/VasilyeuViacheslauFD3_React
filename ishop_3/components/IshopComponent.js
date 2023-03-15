@@ -67,7 +67,7 @@ class IshopComponent extends React.Component {
     changeURL = (EO) => {
 
         this.setState({currentURL: EO.target.value},this.validCard)
-        console.log(this.state.currentURL)
+
     }
 
     changeQuantity = (EO) => {
@@ -163,7 +163,7 @@ class IshopComponent extends React.Component {
     }
 
     render() {
-        console.log(this.state.edit)
+
           let ItemCard = this.state.defaultCards.map( (v,index) =>
             <ProductComponent index={index+1}
                             edit = {this.state.edit}
