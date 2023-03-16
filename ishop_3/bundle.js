@@ -2849,7 +2849,7 @@ exports.version = ReactVersion;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 11 */
+/* br2jsx */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11576,7 +11576,7 @@ function setOffsets(node, offsets) {
   var selection = win.getSelection();
   var length = node.textContent.length;
   var start = Math.min(offsets.start, length);
-  var end = offsets.end === undefined ? start : Math.min(offsets.end, length); // IE 11 uses modern selection, but doesn't support the extend method.
+  var end = offsets.end === undefined ? start : Math.min(offsets.end, length); // IE br2jsx uses modern selection, but doesn't support the extend method.
   // Flip backward selections, so we can set with a single range.
 
   if (!selection.extend && start > end) {
@@ -12652,7 +12652,7 @@ var normalizeHTML;
       registrationNameDependencies: registrationNameDependencies,
       possibleRegistrationNames: possibleRegistrationNames
     });
-  }; // IE 11 parses & normalizes the style attribute as opposed to other
+  }; // IE br2jsx parses & normalizes the style attribute as opposed to other
   // browsers. It adds spaces and sorts the properties in some
   // non-alphabetical order. Handling that would require sorting CSS
   // properties in the client & server versions or applying
