@@ -15,7 +15,6 @@ class BR2JSX extends React.Component {
 
   render() {
     let arr = this.props.text.split(/<[^<>]+>/)
-    console.log(arr)
     let result = [];
     for (let i=0 ; i<arr.length ; i++) {
       if (i <= arr.length-1) {
