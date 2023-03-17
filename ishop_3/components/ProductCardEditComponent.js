@@ -28,24 +28,22 @@ validate = () =>{
     let valid;
 
     if (this.state.currentName.length === 0) {
-
         nameError = "Enter brand name";
-        this.props.cbDisable(this.state.edit)
 
     }
     if (isNaN(this.state.currentPrice)) {
         priceError = "Enter number" ;
-        this.props.cbDisable(this.state.edit)
+
 
     }
     if (this.state.currentURL.length === 0) {
         URLError = "Enter URL";
-        this.props.cbDisable(this.state.edit);
+
 
     }
     if (isNaN(this.state.currentQuantity)) {
         quantityError = "Enter number";
-        this.props.cbDisable(this.state.edit);
+
     }
 
     valid = (!nameError) && (!priceError) && (!URLError) && (!quantityError)
@@ -53,26 +51,32 @@ validate = () =>{
     this.setState({nameError,priceError,URLError,quantityError,valid})
 }
 
+    disableButton =()=> {
+
+           this.state.edit = false
+        this.props.cbDisable(this.state.edit);
+
+    }
 changeName = (EO) => {
 
-    this.setState({currentName: EO.target.value,edit:false},this.validate)
+    this.setState({currentName: EO.target.value},this.validate)
 
 }
     changePrice = (EO) => {
 
-        this.setState({currentPrice: parseInt(EO.target.value),edit:false},this.validate)
+        this.setState({currentPrice: parseInt(EO.target.value)},this.validate)
 
     }
 
     changeURL = (EO) => {
 
-        this.setState({currentURL: EO.target.value,edit:false},this.validate)
+        this.setState({currentURL: EO.target.value},this.validate)
 
     }
 
     changeQuantity = (EO) => {
 
-        this.setState({currentQuantity: parseInt(EO.target.value),edit:false},this.validate)
+        this.setState({currentQuantity: parseInt(EO.target.value)},this.validate)
 
     }
 
@@ -99,7 +103,7 @@ changeName = (EO) => {
             (this.props.infoItem)&&
             <div className="input-group">
               <span className="input-group-text">ID: {this.props.infoItem.code}</span>
-                <div className="control_block"><input type="text" data-tag='tag' aria-label="Name" value={this.state.currentName} onChange={this.changeName}  className="form-control"/>
+                <div className="control_block"><input type="text" data-tag='tag' aria-label="Name" onFocus={this.disableButton} value={this.state.currentName} onChange={this.changeName}  className="form-control"/>
                     <span className="error_msg">{this.state.nameError}</span> </div>
 
                 <div className="control_block"> <input type="number" aria-label="Price" value={this.state.currentPrice} onChange={this.changePrice} className="form-control"/>

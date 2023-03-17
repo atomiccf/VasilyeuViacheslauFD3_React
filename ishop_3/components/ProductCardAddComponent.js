@@ -43,11 +43,13 @@ class ProductCardAddComponent extends React.Component {
             price:this.props.currentPrice,
             image:this.props.currentUrl,quantity:this.props.currentQuantity};
         this.props.cbSaveAdd(obj)
+        this.props.cbCleanState()
 
     }
     handleClick = () => {
         this.generateCode()
         this.add()
+        this.cleanState()
     }
     cancel = () => {
 

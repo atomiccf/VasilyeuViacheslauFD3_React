@@ -110,6 +110,17 @@ class IshopComponent extends React.Component {
 
     };
 
+    cbCleanState = () =>{
+
+
+        this.setState({currentName:null,
+            currentModelName:null,
+            currentPrice:null,
+            currentURL:null,
+            currentQuantity:null})
+
+    }
+
     cbDelete = (code) =>{
         this.setState({cardMode:0})
         this.setState({defaultCards:this.state.defaultCards.filter(item =>{
@@ -246,7 +257,7 @@ class IshopComponent extends React.Component {
                                               changeQuantity ={this.changeQuantity}
                                               cbSaveAdd={this.cbSaveAdd}
                                               cbCancel={this.cbCancel}
-
+                                              cbCleanState={this.cbCleanState}
                     />
                 }
             </div>
