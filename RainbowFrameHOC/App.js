@@ -12,18 +12,17 @@ let colors = ['red','orange', 'yellow','green', '#00BFFF', 'blue', 'purple'];
           alert(`аргумент ${num}`)
 
      }
-let FramedDoubleButton=withRainbowFrame(colors)(DoubleButton);
+let FramedDoubleButton= withRainbowFrame(colors,DoubleButton);
 
 ReactDOM.render(
      <React.Fragment>
-          <DoubleButton caption1="однажды" caption2="пору" cbPressed={cbPressed} >в студёную зимнюю</DoubleButton>
+          <DoubleButton caption1="однажды" caption2="пору" cbPressed={cbPressed} colorArr={colors}>в студёную зимнюю</DoubleButton>
 
-          <FramedDoubleButton caption1="я из лесу" caption2="мороз" cbPressed={cbPressed}>вышел, был сильный</FramedDoubleButton>
+<FramedDoubleButton caption1="я из лесу" caption2="мороз" cbPressed={cbPressed} >  вышел, был сильный</FramedDoubleButton>
+
      </React.Fragment>
 
-  /*  <RainbowFrame colors={colors}>
-      Hello!
-    </RainbowFrame>*/
+
   , document.getElementById('container') 
 );
 
