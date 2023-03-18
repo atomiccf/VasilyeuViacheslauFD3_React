@@ -6,9 +6,10 @@ import React from 'react';
 
 class ProductComponent extends React.Component{
 
-    clicked = () => {
+    clicked = (EO) => {
+        if(this.props.cardMode === 'edit')  EO.stopPropagation();
 
-        return this.props.cbSelect(this.props.code);
+       else return this.props.cbSelect(this.props.code);
 
 
     }

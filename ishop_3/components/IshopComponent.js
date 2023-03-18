@@ -49,7 +49,7 @@ class IshopComponent extends React.Component {
 
 
     changeName = (EO) => {
-        console.log(EO.target.value)
+
         this.setState({currentName: EO.target.value},this.validCard)
 
     }

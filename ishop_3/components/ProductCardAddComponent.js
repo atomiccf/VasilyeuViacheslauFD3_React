@@ -49,7 +49,7 @@ class ProductCardAddComponent extends React.Component {
     handleClick = () => {
         this.generateCode()
         this.add()
-        this.cleanState()
+
     }
     cancel = () => {
 
