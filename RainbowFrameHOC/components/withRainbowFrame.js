@@ -27,7 +27,4 @@ function withRainbowFrame(colors) {
 }
 
 
-
-
-
 export default withRainbowFrame;
