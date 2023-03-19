@@ -9,7 +9,7 @@ function withRainbowFrame(colors) {
             let component = <Comp {...props} /> ;
 
             for (let color of colors) {
-                if (color  === 'red') block =  <div style={{border:`solid 5px ${color}`,margin:'5px'}}>{component}  </div>
+                if (color === colors[0]) block =  <div style={{border:`solid 5px ${color}`,margin:'5px'}}>{component}  </div>
 
                 else
                     block =  <div style={{border:`solid 5px ${color}`,margin:'5px'}}>{block}
