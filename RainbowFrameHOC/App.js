@@ -12,7 +12,7 @@ let colors = ['red','orange', 'yellow','green', '#00BFFF', 'blue', 'purple'];
           alert(`аргумент ${num}`)
 
      }
-let FramedDoubleButton= withRainbowFrame(colors,DoubleButton);
+let FramedDoubleButton= withRainbowFrame(colors)(DoubleButton);
 
 ReactDOM.render(
      <React.Fragment>

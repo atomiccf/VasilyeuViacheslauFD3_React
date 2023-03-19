@@ -1,14 +1,12 @@
 import React from 'react';
 
 
-function withRainbowFrame(colors,Comp) {
+function withRainbowFrame(colors) {
+    return function(Comp) {
+        return function (props) {
 
-    class RainbowFrame extends React.Component {
-
-
-        render() {
             let block=null;
-            let component = <Comp {...this.props} /> ;
+            let component = <Comp {...props} /> ;
 
             for (let color of colors) {
                 if (color  === 'red') block =  <div style={{border:`solid 5px ${color}`,margin:'5px'}}>{component}  </div>
@@ -16,24 +14,18 @@ function withRainbowFrame(colors,Comp) {
                 else
                     block =  <div style={{border:`solid 5px ${color}`,margin:'5px'}}>{block}
 
-                </div>
+                    </div>
 
             }
             return   <React.Fragment >
                 {block}
-
             </React.Fragment>
 
         }
 
-
-    }
-
-    return RainbowFrame;
-
-
-
+    };
 }
+
 
 
 
