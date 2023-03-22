@@ -5,16 +5,10 @@ function withRainbowFrame(colors) {
     return function(Comp) {
         return function (props) {
 
-            let block=null;
-            let component = <Comp {...props} /> ;
+            let block  = <Comp {...props} /> ;
 
             for (let color of colors) {
-                if (color === colors[0]) block =  <div style={{border:`solid 5px ${color}`,margin:'5px'}}>{component}  </div>
-
-                else
-                    block =  <div style={{border:`solid 5px ${color}`,margin:'5px'}}>{block}
-
-                    </div>
+                block =  <div style={{border:`solid 5px ${color}`,margin:'5px'}}>{block} </div>
 
             }
             return   <React.Fragment >
