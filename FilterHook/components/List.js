@@ -14,7 +14,7 @@ function List(props) {
 
     }
     if (props.filterStr) {
-        console.log(1)
+
         list = list.filter(item => {
 
             return item.includes(props.filterStr)
@@ -23,15 +23,6 @@ function List(props) {
         })
         return list
     }
-
-
-
-
-
-
-
-
-
 
    return <React.Fragment>
         <div className="textarea">

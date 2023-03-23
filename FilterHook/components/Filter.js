@@ -13,13 +13,13 @@ function Filter() {
     let cbChecked = (bool) =>{
 
         setIsSort(bool)
-        console.log(isSort)
+
     }
 
     let cbGetFilterStr = (str) =>{
 
         setFilterStr(str)
-        console.log(filterStr)
+
     }
 
 

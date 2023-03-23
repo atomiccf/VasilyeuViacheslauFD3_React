@@ -9,7 +9,7 @@ function Control(props)  {
     const input = useRef('')
 
     let sortChecked = (EO) => {
-            console.log(EO.target.checked)
+
             props.cbChecked(EO.target.checked)
 
 
