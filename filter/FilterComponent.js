@@ -36,10 +36,11 @@ var FilterComponent = React.createClass({
 
     sortList:function () {
         let list = this.props.words.slice()
+
         if(this.state.isSort) list.sort();
 
         if (this.state.filterStr) list=list.filter(item => {
-            console.log(`${item}`)
+
              return item.includes(this.state.filterStr)
 
 
