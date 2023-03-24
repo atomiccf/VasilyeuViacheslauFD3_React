@@ -7,7 +7,6 @@ function List(props) {
 
 
 
-
     if (props.isSort) {
 
         list.sort()
@@ -26,7 +25,7 @@ function List(props) {
 
    return <React.Fragment>
         <div className="textarea">
-            {list}
+            {list.join('\n')}
         </div>
     </React.Fragment>;
 }

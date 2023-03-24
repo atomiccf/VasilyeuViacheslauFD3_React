@@ -1,6 +1,6 @@
 .textarea {
     width: 670px;
-
+    white-space: pre-wrap;
 
 
 }
