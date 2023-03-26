@@ -53,8 +53,8 @@ class MobileCompany extends React.PureComponent {
 
   deleteClient = (id) => {
 
-    let newClients=[...this.state.clients];
-    this.setState({clients:newClients.filter(item =>{
+    /*let newClients=[...this.state.clients];*/
+    this.setState({clients:[...this.state.clients].filter(item =>{
 
         return item.id !== id;
       })})
@@ -63,7 +63,7 @@ class MobileCompany extends React.PureComponent {
 
   editClient = (client) => {
 
-    let newClients = [...this.props.clients]
+    let newClients = [...this.state.clients]
     newClients.forEach((item, index) => {
 
       if (item.id === client.id) {
