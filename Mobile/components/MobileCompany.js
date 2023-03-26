@@ -151,13 +151,13 @@ class MobileCompany extends React.PureComponent {
         <table>
           <thead>
           <tr>
-            <th scope={"col"}>Фамилия</th>
-            <th scope={"col"}>Имя</th>
-            <th scope={"col"}>Отчество</th>
-            <th scope={"col"}>Баланс</th>
-            <th scope={"col"}>Статус</th>
-            <th scope={"col"}>Редактировать</th>
-            <th scope={"col"}>Удалить</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Баланс</th>
+            <th>Статус</th>
+            <th>Редактировать</th>
+            <th>Удалить</th>
           </tr>
           </thead>
           <tbody>{clientsCode}</tbody>

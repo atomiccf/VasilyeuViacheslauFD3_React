@@ -47,24 +47,7 @@ function Filter() {
 
 
     },[isSort,filterStr])
-    useEffect(()=>{
 
-
-
-        if (filterStr) {
-              setList( list.filter(item => {
-
-                  return item.includes(filterStr)
-
-              })
-              )
-
-          } else  setList(wordList.slice())
-
-
-
-
-    },[filterStr])
 
     return <React.Fragment>
 
