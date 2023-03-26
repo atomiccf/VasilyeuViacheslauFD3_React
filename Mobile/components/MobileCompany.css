@@ -1,0 +1,23 @@
+﻿.MobileCompany
+{
+  border: double gray 3px;
+  width: 700px;
+  padding: 3px 7px;
+  background-color: lightyellow;
+}
+
+.MobileCompanyName
+{
+  font-weight: bold;
+}
+
+.MobileCompanyClients
+{
+  padding-top: 5px;
+}
+
+.button_block {
+  display: flex;
+  flex-flow: row;
+
+}
