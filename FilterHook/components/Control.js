@@ -5,8 +5,8 @@ import './Control.css'
 
 function Control(props)  {
 
-    const check = useRef(false)
-    const input = useRef('')
+    const check = useRef(null)
+    const input = useRef(null)
 
     let sortChecked = (EO) => {
 
