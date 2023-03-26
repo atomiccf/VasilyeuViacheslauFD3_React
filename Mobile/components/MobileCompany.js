@@ -93,14 +93,14 @@ class MobileCompany extends React.PureComponent {
 
 
   showActive = () => {
-    this.setState({clients:[...this.props.clients].filter(item => {
+    this.setState({clients:this.props.clients.filter(item => {
         return item.status === 'active'})
 
     })
   }
   showBlocked = () => {
 
-    this.setState({clients:[...this.props.clients].filter(item => {
+    this.setState({clients:this.props.clients.filter(item => {
         return item.status === 'blocked'})
 
     })
