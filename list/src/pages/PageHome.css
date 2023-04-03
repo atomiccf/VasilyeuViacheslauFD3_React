@@ -1,0 +1,21 @@
+.container_home {
+  margin: 0 auto;
+  width: 1200px;
+}
+.container_home button {
+  margin-left: 10px;
+  width: 90px;
+  height: 52px;
+  color: white;
+  /* Blue Dark */
+  background: #1E6F9F;
+  border-radius: 8px;
+}
+.container_home button:hover {
+  cursor: pointer;
+}
+.container_home h1 {
+  text-align: left;
+}
+
+/*# sourceMappingURL=PageHome.css.map */

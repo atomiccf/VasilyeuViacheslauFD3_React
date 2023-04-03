@@ -1,0 +1,40 @@
+.inputBlock {
+  margin: 0 auto;
+  /*margin-top: 50px;*/
+  width: 1200px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+.inputBlock input[type=text] {
+  color: white;
+  width: 638px;
+  height: 54px;
+  /* Gray 500 */
+  background: #262626;
+  /* Gray 700 */
+  border: 1px solid #0D0D0D;
+  border-radius: 8px;
+}
+.inputBlock input[type=submit] {
+  margin-left: 10px;
+  width: 90px;
+  height: 52px;
+  /* Blue Dark */
+  background: #1E6F9F;
+  border-radius: 8px;
+}
+
+.showBlock {
+  margin-top: 50px;
+  width: 736px;
+  height: 287px;
+  border-top: 1px solid #333333;
+  border-radius: 8px;
+}
+
+.inputGroup {
+  margin-top: 50px;
+}
+
+/*# sourceMappingURL=PageList.css.map */
