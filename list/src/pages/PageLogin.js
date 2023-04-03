@@ -1,25 +1,28 @@
 import React, { useState, useRef } from 'react';
 import {NavLink} from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
+
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import "./PageRegistration.css"
 
+import './PageLogin.css'
 
 
-
-export const PageRegistration =() => {
+export const PageLogin =() => {
 
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    const [isReg, setIsReg] = useState(false);
+    const [isAuth, setIsAuth] = useState(false);
+
     const mail = useRef();
     const password = useRef();
 
-     const changeEmail =(EO) => {
+    const changeEmail =(EO) => {
 
-         setEmail(EO.target.value)
+        setEmail(EO.target.value)
 
 
-     }
+    }
     const changePass =(EO) => {
 
         setPass(EO.target.value)
@@ -27,14 +30,14 @@ export const PageRegistration =() => {
 
     }
 
-    const  createAccount = () => {
+    const  loginAccount = () => {
 
 
         const auth = getAuth();
-        createUserWithEmailAndPassword(auth,email,pass)
+        signInWithEmailAndPassword(auth,email,pass)
             .then ((userCredential) => {
                 console.log('Success')
-              /*   const user = userCredential.user;*/
+                /*const user = userCredential.user;*/
 
 
             })
@@ -43,7 +46,7 @@ export const PageRegistration =() => {
                 const errorMessage = error.message;
                 console.log(`ErrorCode: ${errorCode} ErrorMessage: ${errorMessage} `)
             });
-        setIsReg(true)
+        setIsAuth(true)
         mail.current.value = '';
         password.current.value = '';
     }
@@ -51,24 +54,23 @@ export const PageRegistration =() => {
     return (
         <>
 
-            {(isReg) &&
+            {(isAuth) &&
                 <>
-                <div>
-                    <h2>Congratulations! Registration complete!</h2>
-                    <p>Please Sing In</p>
-                    <NavLink to='login'><div >Sing In</div></NavLink>
-                </div>
+                    <div>
+                        <h2>You are signed in</h2>
+                        <NavLink to='/'><div>Start</div></NavLink>
+                    </div>
 
 
                 </>
             }
-            {(!isReg) &&
+           { (!isAuth) &&
                 <>
-                    <div className="registration_block">
-                        <div className="registration_form">
+                    <div className="login_block">
+                        <div className="login_form">
                             <input ref={mail} onChange={changeEmail} placeholder="Enter e-mail" type="text"/>
                             <input ref={password} onChange={changePass} placeholder="Password" type="password"/>
-                            <button onClick={createAccount}>Send</button>
+                            <button onClick={loginAccount}>Send</button>
 
                         </div>
 

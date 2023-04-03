@@ -12,7 +12,7 @@ return (
         <h1>Home Page</h1>
         <p>Welcome in our application! If you first time there, please register!</p>
         <NavLink to='registration'><button>Registration</button></NavLink>
-        <button>Sing In</button>
+        <NavLink to='login'><button>Sing In</button></NavLink>
     </div>
 
 
