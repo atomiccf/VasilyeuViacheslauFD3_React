@@ -1,8 +1,13 @@
-import React, { useState, useRef } from 'react';
+import React  from 'react';
 import {NavLink} from "react-router-dom";
+import {newEvent} from "../components/event";
 
 
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useDispatch, useSelector } from 'react-redux';
+
+import { userLogin } from "../redux/userLogin.js";
+
+
 import "./PageRegistration.css"
 
 import './PageLogin.css'
@@ -10,67 +15,49 @@ import './PageLogin.css'
 
 export const PageLogin =() => {
 
-    const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
-    const [isAuth, setIsAuth] = useState(false);
-
-    const mail = useRef();
-    const password = useRef();
-
+    const dispatch = useDispatch();
+    const user = useSelector( state => state.user);
     const changeEmail =(EO) => {
 
-        setEmail(EO.target.value)
-
+        newEvent.emit('Mail',EO.target.value)
 
     }
     const changePass =(EO) => {
 
-        setPass(EO.target.value)
+        newEvent.emit('Pass',EO.target.value)
 
 
     }
 
-    const  loginAccount = () => {
+    function load (){
 
+        dispatch(userLogin)
 
-        const auth = getAuth();
-        signInWithEmailAndPassword(auth,email,pass)
-            .then ((userCredential) => {
-                console.log('Success')
-                /*const user = userCredential.user;*/
-
-
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(`ErrorCode: ${errorCode} ErrorMessage: ${errorMessage} `)
-            });
-        setIsAuth(true)
-        mail.current.value = '';
-        password.current.value = '';
     }
+
+
 
     return (
         <>
 
-            {(isAuth) &&
+            {(user.isLogin) &&
                 <>
                     <div>
-                        <h2>You are signed in</h2>
+                        <h2> You are signed in {user.data.email}</h2>
                         <NavLink to='/'><div>Start</div></NavLink>
                     </div>
 
 
                 </>
             }
-           { (!isAuth) &&
+           { (!user.isLogin) &&
                 <>
                     <div className="login_block">
                         <div className="login_form">
-                            <input ref={mail} onChange={changeEmail} placeholder="Enter e-mail" type="text"/>
-                            <input ref={password} onChange={changePass} placeholder="Password" type="password"/>
-                            <button onClick={loginAccount}>Send</button>
+                            <h2>Please, sing in !</h2>
+                            <input onChange={changeEmail} placeholder="Enter e-mail" type="text"/>
+                            <input onChange={changePass} placeholder="Password" type="password"/>
+                            <button onClick={load}>Send</button>
 
                         </div>
 

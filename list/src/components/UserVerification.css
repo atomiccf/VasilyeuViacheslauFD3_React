@@ -1,0 +1,16 @@
+.user_info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.user_info span {
+  margin-right: 10px;
+  color: white;
+}
+.user_info a {
+  margin-right: 10px;
+  color: white;
+}
+
+/*# sourceMappingURL=UserVerification.css.map */
