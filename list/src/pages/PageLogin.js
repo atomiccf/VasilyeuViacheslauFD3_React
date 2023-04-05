@@ -1,63 +1,93 @@
-import React  from 'react';
+import React,{useState}  from 'react';
 import {NavLink} from "react-router-dom";
-import {newEvent} from "../components/event";
+import {useNavigate} from "react-router-dom";
+
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {setUser,setLogin} from "../redux/userSlice";
+
+import { useDispatch} from 'react-redux';
 
 
-import { useDispatch, useSelector } from 'react-redux';
 
-import { userLogin } from "../redux/userLogin.js";
-
-
-import "./PageRegistration.css"
 
 import './PageLogin.css'
 
 
 export const PageLogin =() => {
 
+    const [email,setEmail] = useState('');
+
+    const [pass,setPass] = useState('');
+    const [isLogin,set] = useState(false);
     const dispatch = useDispatch();
-    const user = useSelector( state => state.user);
+    let navigate = useNavigate();
+
+
     const changeEmail =(EO) => {
 
-        newEvent.emit('Mail',EO.target.value)
+       setEmail(EO.target.value)
 
     }
     const changePass =(EO) => {
 
-        newEvent.emit('Pass',EO.target.value)
+        setPass(EO.target.value);
+        set(false)
+    }
+
+
+    const handlerSinIn = () => {
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth,email,pass)
+            .then( ({user}) =>{
+                dispatch(setUser({
+                    email:user.email,
+                    id:user.uid,
+                    token:user.accessToken,
+
+                }))
+                dispatch(setLogin({isLogin:true}))
+               navigate('/');
+
+
+            })
+            .catch(()=> {
+                console.error()
+                dispatch(setLogin({isLogin:false}))
+
+
+            });
 
 
     }
 
-    function load (){
 
-        dispatch(userLogin)
 
-    }
+
+
 
 
 
     return (
         <>
 
-            {(user.isLogin) &&
+            {(isLogin) &&
                 <>
                     <div>
-                        <h2> You are signed in {user.data.email}</h2>
+                        <h2> You are signed in {/*{userName.email}*/}</h2>
                         <NavLink to='/'><div>Start</div></NavLink>
                     </div>
 
 
                 </>
             }
-           { (!user.isLogin) &&
+           { (!isLogin) &&
                 <>
                     <div className="login_block">
                         <div className="login_form">
                             <h2>Please, sing in !</h2>
                             <input onChange={changeEmail} placeholder="Enter e-mail" type="text"/>
                             <input onChange={changePass} placeholder="Password" type="password"/>
-                            <button onClick={load}>Send</button>
+                            <button onClick={handlerSinIn}>Send</button>
 
                         </div>
 

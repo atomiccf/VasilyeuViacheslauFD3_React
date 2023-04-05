@@ -40,6 +40,8 @@
     ]
   },
   "devDependencies": {
+    "@reactivers/use-auth": "^1.0.2",
+    "hooks": "^0.3.2",
     "react-redux": "^8.0.5"
   }
 }

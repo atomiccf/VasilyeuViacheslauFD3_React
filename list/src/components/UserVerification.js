@@ -1,29 +1,56 @@
 import React from "react";
-import {useSelector} from 'react-redux'
-import {useEffect} from "react";
+
+import {setLogin,setUser} from "../redux/userSlice";
+import { useDispatch,useSelector } from 'react-redux';
+
 import {NavLink} from "react-router-dom";
+import { getAuth, signOut,onAuthStateChanged } from "firebase/auth";
 
 import "./UserVerification.css"
 
 export const UserVerification =() => {
 
-
     let isLogin = useSelector(state => state.user.isLogin)
-    let userName = useSelector(state => JSON.parse(state.user.data))
-
-    useEffect(() => {
-        if(isLogin === undefined){
-            return}
-        else{
+    let email = useSelector(state => state.user.email)
+    const dispatch = useDispatch();
+    const auth = getAuth();
 
 
-        }}, [isLogin,userName]);
+    const handleLogout = () => {
+
+
+        signOut(auth).then(() => {
+            console.log("Sign-out successful") // Sign-out successful.
+            dispatch(setLogin({isLogin:false}))
+            console.log(isLogin)
+        }).catch((error) => {
+            console.log(error)
+        });
+
+
+    }
+
+    onAuthStateChanged(auth, (user) => {
+
+        if (user) {
+            dispatch(setUser({
+                email:user.email,
+                id:user.uid,
+                token:user.accessToken,
+            }))
+            dispatch(setLogin({isLogin:true}))
+
+
+        }
+
+
+    } )
 
 
 
     return (
         <>
-            { ( !isLogin   ) &&
+            { (!isLogin) &&
 
                 <>
                     <div className="user_info">
@@ -38,7 +65,7 @@ export const UserVerification =() => {
 
                 <>
                     <div className="user_info">
-                        <span>Hi, {userName.email}!</span>  <NavLink to='login'><div >Sing out</div></NavLink>
+                        <span>Hi, {email} !</span>  <NavLink to='login'><button onClick={handleLogout}>Sing out</button></NavLink>
                     </div>
 
                 </>

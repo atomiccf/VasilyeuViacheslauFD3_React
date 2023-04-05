@@ -1,9 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    dataLoadState: 0, // 0 - not loaded, 1 - is loading, 2 - loaded, 3 - error
-    dataLoadError: null,
-    data:null,
+
+    email: null,
+    id:null,
+    token:null,
     isLogin:null,
 
 }
@@ -12,26 +13,22 @@ export const userSlice = createSlice({
     name:'user',
     initialState,
     reducers:{
-        updateLoadState: (state, action) =>{
-            state.dataLoadState = action.payload.state;
+
+        setUser:(state, action) => {
+            state.email = action.payload.email;
+            state.id = action.payload.id;
+            state.token = action.payload.token;
+},
+    setLogin: (state,action) => {
             state.isLogin = action.payload.isLogin;
-            state.dataLoadError = action.payload.error;
 
-
-        },
-
-
-
-        updateData: (state,action) => {
-            state.data = action.payload;
-        },
-
+},
 
 
     }
 
 
 });
-export const { updateLoadState, updateData } = userSlice.actions;
+export const { setUser,setLogin } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -24,18 +24,17 @@ export async function userLogin(dispatch){
     const auth = getAuth();
     signInWithEmailAndPassword(auth,mail,pas)
         .then ((userCredential) => {
-            dispatch(updateLoadState({state:1,error:null,isLogin:false}));
-
-                dispatch(updateLoadState({state: 2, error: null, isLogin: true}));
+            dispatch(updateLoadState({dataLoadState:1,error:null,isLogin:null}));
+                dispatch(updateLoadState({dataLoadState: 2, error: null,isLogin:true}));
                 console.log('Success')
-                const stringify = JSON.stringify(userCredential.user);
-                dispatch(updateData(stringify))
+                         const data = JSON.stringify(userCredential.user);
+                dispatch(updateData(data))
 
         })
                     .catch((error) => {
                         const errorCode = error.code;
                         const errorMessage = error.message;
-                        dispatch(updateLoadState({state:3,error:error,isLogin:false}))
+                        dispatch(updateLoadState({dataLoadState:3,error:error,isLogin:null}))
                         console.log(`ErrorCode: ${errorCode} ErrorMessage: ${errorMessage} `)
                     });
 

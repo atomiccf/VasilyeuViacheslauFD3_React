@@ -1,13 +1,22 @@
 import React, { useState, useRef } from 'react';
 import {NavLink} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import { useDispatch} from 'react-redux';
+
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {setUser} from "../redux/userSlice";
+
+
 import "./PageRegistration.css"
+
 
 
 
 
 export const PageRegistration =() => {
 
+    const dispatch = useDispatch();
+    let navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [isReg, setIsReg] = useState(false);
@@ -32,9 +41,14 @@ export const PageRegistration =() => {
 
         const auth = getAuth();
         createUserWithEmailAndPassword(auth,email,pass)
-            .then ((userCredential) => {
-                console.log('Success')
-              /*   const user = userCredential.user;*/
+            .then( ({user}) =>{
+                dispatch(setUser({
+                    email:user.email,
+                    id:user.uid,
+                    token:user.accessToken,
+
+                }))
+                navigate('/');
 
 
             })
