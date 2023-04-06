@@ -3,7 +3,7 @@ import { useSelector} from 'react-redux';
 
 import { getDatabase, ref,push,set} from "firebase/database";
 
-
+import {ShowListComp} from "../components/ShowListComp";
 import "./AddTaskComp.css"
 
 export const AddTaskComp =() => {
@@ -36,12 +36,12 @@ export const AddTaskComp =() => {
                 state:'current'
             }).then(() => {
 
-                console.log(db)
-
+                console.log("Success")
+                input.current.value ='';
             })
                 .catch(console.error);
 
-            input.current.value ='';
+
 
     }
 
@@ -56,7 +56,7 @@ export const AddTaskComp =() => {
                     <input onClick={sendData} type="submit"/>
                 </div>
 
-
+                <ShowListComp/>
             </div>
 
         </>

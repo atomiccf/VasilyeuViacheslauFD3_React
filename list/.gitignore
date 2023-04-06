@@ -26,3 +26,4 @@ yarn-error.log*
 /src/components/AddTaskComp.css.map
 /src/components/LoginComponent.css.map
 /src/components/SingUpComponent.css.map
+/src/components/ShowListComp.css.map

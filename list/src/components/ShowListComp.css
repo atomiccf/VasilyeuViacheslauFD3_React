@@ -1,0 +1,18 @@
+.showBlock {
+  margin-top: 50px;
+  width: 736px;
+  height: 287px;
+  border-top: 1px solid #333333;
+  border-radius: 8px;
+}
+
+.taskBlock {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 50px;
+  border-top: 1px solid #333333;
+  border-radius: 8px;
+}
+
+/*# sourceMappingURL=ShowListComp.css.map */
