@@ -1,11 +1,11 @@
-.login_block {
+.registration_block {
   margin: 0 auto;
   width: 1200px;
   display: flex;
   justify-content: center;
 }
 
-.login_form {
+.registration_form {
   display: flex;
   flex-direction: column;
   margin-top: 50px;
@@ -14,7 +14,7 @@
   border-top: 1px solid #333333;
   border-radius: 8px;
 }
-.login_form button {
+.registration_form button {
   margin-top: 10px;
   margin-left: 75px;
   width: 153px;
@@ -23,10 +23,10 @@
   background: #1E6F9F;
   border-radius: 8px;
 }
-.login_form button:hover {
+.registration_form button:hover {
   cursor: pointer;
 }
-.login_form input[type=text] {
+.registration_form input[type=text] {
   color: white;
   width: 296px;
   height: 54px;
@@ -36,7 +36,7 @@
   border: 1px solid #0D0D0D;
   border-radius: 8px;
 }
-.login_form input[type=password] {
+.registration_form input[type=password] {
   margin-top: 10px;
   color: white;
   width: 296px;
@@ -48,4 +48,4 @@
   border-radius: 8px;
 }
 
-/*# sourceMappingURL=PageLogin.css.map */
+/*# sourceMappingURL=PageRegistration.css.map */

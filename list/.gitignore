@@ -23,3 +23,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 /src/pages/PageLogin.css.map
+/src/components/AddTaskComp.css.map
+/src/components/LoginComponent.css.map
+/src/components/SingUpComponent.css.map

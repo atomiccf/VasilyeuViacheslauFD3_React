@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import {setLogin,setUser} from "../redux/userSlice";
 import { useDispatch,useSelector } from 'react-redux';
@@ -30,22 +30,28 @@ export const UserVerification =() => {
 
     }
 
-    onAuthStateChanged(auth, (user) => {
 
-        if (user) {
-            dispatch(setUser({
-                email:user.email,
-                id:user.uid,
-                token:user.accessToken,
-            }))
-            dispatch(setLogin({isLogin:true}))
+    useEffect(()=>{
+
+        onAuthStateChanged(auth, (user) => {
+
+            if (user) {
+                dispatch(setUser({
+                    email:user.email,
+                    id:user.uid,
+                    token:user.accessToken,
+                }))
+                dispatch(setLogin({isLogin:true}))
 
 
-        }
+            }
 
 
-    } )
+        } )
 
+
+
+    },[isLogin])
 
 
     return (
