@@ -1,18 +1,118 @@
+@keyframes hide {
+  0% {
+    opacity:1;
+  }
+
+  50% {
+
+    opacity:0.5;
+
+  }
+
+  100% {
+    opacity:0;
+
+  }
+}
+
+@keyframes line {
+  0% {
+    text-decoration: none;
+  }
+
+
+
+  100% {
+    text-decoration: line-through;
+
+  }
+}
+
+
+@keyframes show {
+  0% {
+    opacity:0;
+  }
+
+  50% {
+
+    opacity:0.5;
+
+  }
+
+  100% {
+    opacity:1;
+
+  }
+}
+
 .showBlock {
   margin-top: 50px;
   width: 736px;
-  height: 287px;
-  border-top: 1px solid #333333;
+  padding: 5px 10px 5px 10px;
+  border: 5px solid #333333;
   border-radius: 8px;
+  animation: 1.5s show;
 }
 
 .taskBlock {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  position: relative;
+
   width: 100%;
-  height: 50px;
-  border-top: 1px solid #333333;
+  height: 70px;
+
+  margin-bottom: 5px;
+  margin-top: 5px;
+  border: 1px solid #333333;
   border-radius: 8px;
+  -webkit-box-shadow: 8px 8px 24px 0 rgba(66, 68, 90, 1);
+  -moz-box-shadow: 8px 8px 24px 0 rgba(66, 68, 90, 1);
+  box-shadow: 8px 8px 24px 0 rgba(66, 68, 90, 1);
+  animation: 2s show;
+
+  &:hover {
+    box-shadow: inset 8px 8px 24px 0 rgba(66, 68, 90, 1);
+
+
+  }
+button {
+  width: 25px;
+  height: 28px;
+  position: absolute;
+  top: 30px;
+  left: 677px;
+  background-image: url("../img/trash.png");
+  border: 0;
+  cursor: pointer;
+}
+
 
 
 }
+
+.text_style {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 90%;
+  margin-left: 5px;
+
+
+}
+
+input:checked + div  {
+
+  text-decoration: line-through;
+
+}
+
+.taskBlock_hide{
+
+
+  animation: 2s  hide;
+
+}
+
