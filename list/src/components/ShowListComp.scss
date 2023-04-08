@@ -15,20 +15,6 @@
   }
 }
 
-@keyframes line {
-  0% {
-    text-decoration: none;
-  }
-
-
-
-  100% {
-    text-decoration: line-through;
-
-  }
-}
-
-
 @keyframes show {
   0% {
     opacity:0;
@@ -47,14 +33,49 @@
 }
 
 .showBlock {
+  position: relative;
   margin-top: 50px;
   width: 736px;
   padding: 5px 10px 5px 10px;
   border: 5px solid #333333;
   border-radius: 8px;
   animation: 1.5s show;
-}
 
+  .tabBlock {
+    width: 190px;
+    border-top: 4px solid #333333;
+    border-left:4px solid #333333 ;
+    border-top-left-radius: 11px;
+    border-right:4px solid #333333 ;
+    border-top-right-radius: 11px;
+
+
+    &:hover {
+      cursor: pointer;
+
+    }
+
+
+  }
+  .tabBlock_complete {
+    right: 17px;
+
+
+
+  }
+
+
+
+
+
+}
+.tabs_panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+
+}
 .taskBlock {
   display: flex;
   flex-direction: row;
@@ -83,7 +104,7 @@ button {
   position: absolute;
   top: 30px;
   left: 677px;
-  background-image: url("../img/trash.png");
+  background: url("../img/trash.png") #282C34;
   border: 0;
   cursor: pointer;
 }
@@ -113,6 +134,12 @@ input:checked + div  {
 
 
   animation: 2s  hide;
+
+}
+
+.pressed {
+  text-decoration: underline;
+  box-shadow: inset 8px 8px 24px 0 rgba(66, 68, 90, 1);
 
 }
 

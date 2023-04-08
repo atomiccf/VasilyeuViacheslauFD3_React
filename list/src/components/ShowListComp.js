@@ -9,27 +9,40 @@ import "./ShowListComp.css"
 
 export const ShowListComp = () => {
     const db = getDatabase();
-    const isLogin = useSelector(state => state.user.isLogin)
+    const isLogin = useSelector(state => state.user.isLogin);
     const userId = useSelector(state => state.user.id);
-    const [data,setData] = useState([])
+    const [dataCurrent,setDataCurrent] = useState([]);
+    const [dataComplete,setDataComplete] = useState([]);
+    const [isCurrent,setCurrent] = useState(true);
+    const [isComplete,setComplete] = useState(false);
+    const [countCurrent,setCountCurrent] = useState(0)
+    const [countComplete,setCountComplete] = useState(0)
 
 
-    const lineTrough = (EO) => {
+    const handlerChange = (EO) => {
 
-        if (EO.currentTarget.checked) {
-            console.log(EO.currentTarget.checked)
-            console.log(EO.target.id)
+
+        if(EO.currentTarget.id === "current") {
+            setCurrent(true)
+            setComplete(false)
+            console.log( 'active current')
+
+        }else if (EO.currentTarget.id === "complete") {
+            setCurrent(false)
+            setComplete(true)
+            console.log('active complete')
         }
 
 
 
-
     }
+
+
     const handlerComplete = (EO) => {
         console.log(EO.target.parentNode.id)
 
-        EO.target.parentNode.classList.add('taskBlock_hide')
-        let postId = EO.target.parentNode.id
+        EO.target.parentNode.classList.add('taskBlock_hide');
+        let postId = EO.target.parentNode.id;
 
 
         setTimeout(()=> {
@@ -37,27 +50,17 @@ export const ShowListComp = () => {
             const postRef = ref(db, `users/${userId}/${postId}`);
 
             update(postRef, {
-
                 state: 'complete'
             }).then(() => {
-
                 console.log("Post updated successfully!");
-
             })
                 .catch((error) => {
                     console.error(error);
                 })
-
-
-
-
         },2000)
 
 
     }
-
-
-
 
     useEffect(()=>{
 
@@ -67,10 +70,18 @@ export const ShowListComp = () => {
             const data = snapshot.val();
 
             if (data) {
-                const todosArray = Object.values(data).filter(item => {
+                const currenArray = Object.values(data).filter(item => {
                     return item.state === "current"
                 });
-                setData(todosArray);
+                    const completeArray =Object.values(data).filter(item => {
+                        return item.state === "complete"
+                    });
+
+                setDataCurrent(currenArray);
+                setDataComplete(completeArray);
+                setCountCurrent(currenArray.length)
+                setCountComplete(completeArray.length)
+
             }
 
 
@@ -82,20 +93,40 @@ export const ShowListComp = () => {
     return    (
 
         <>
-            {(data === null) &&
+            {(dataCurrent === null || dataComplete === null) &&
                 <div className='showBlock' >
                 </div>
             }
 
 
-           {(data !== null) &&
+           {(isCurrent) &&
+
                 <div className='showBlock'>
-                    {data.map((value) => (
+                    <div className="tabs_panel">
+                        <div onClick={handlerChange} id="current" className={(isCurrent)?"tabBlock pressed":"tabBlock"}>Current tasks {countCurrent}</div>
+                        <div onClick={handlerChange} id="complete" className={"tabBlock tabBlock_complete"}>Complete tasks {countComplete}</div>
+                    </div>
+                    {dataCurrent.map((value) => (
                         <div  id={value.id} className="taskBlock" key={value.id}>
-                            <input onClick={lineTrough} type="radio"/>
+                            <input type="radio"/>
                             <div className='text_style'> <span>{value.task}</span> <span>{value.date}</span></div>
                             <button onClick={handlerComplete}></button>
                         </div>
+                    ))}
+                </div>
+            }
+
+            {(isComplete) &&
+
+                <div className='showBlock'>
+                    <div className="tabs_panel">
+                        <div onClick={handlerChange} id="current" className="tabBlock">Current tasks {countCurrent}</div>
+                        <div onClick={handlerChange} id="complete" className={(isComplete)? "tabBlock tabBlock_complete pressed":"tabBlock tabBlock_complete"}>Complete tasks {countComplete}</div>
+                    </div>
+                    {dataComplete.map((value) => (
+                        <div  id={value.id} className="taskBlock" key={value.id}>
+                            <div className='text_style'> <span>{value.task}</span> <span>{value.date}</span></div>
+                            </div>
                     ))}
                 </div>
             }
