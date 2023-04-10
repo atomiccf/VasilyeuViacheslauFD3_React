@@ -1,36 +1,4 @@
-@keyframes hide {
-  0% {
-    opacity:1;
-  }
 
-  50% {
-
-    opacity:0.5;
-
-  }
-
-  100% {
-    opacity:0;
-
-  }
-}
-
-@keyframes show {
-  0% {
-    opacity:0;
-  }
-
-  50% {
-
-    opacity:0.5;
-
-  }
-
-  100% {
-    opacity:1;
-
-  }
-}
 
 .showBlock {
   position: relative;
@@ -143,3 +111,61 @@ input:checked + div  {
 
 }
 
+@keyframes hide {
+  0% {
+    opacity:1;
+  }
+
+  50% {
+
+    opacity:0.5;
+
+  }
+
+  100% {
+    opacity:0;
+
+  }
+}
+
+@keyframes show {
+  0% {
+    opacity:0;
+  }
+
+  50% {
+
+    opacity:0.5;
+
+  }
+
+  100% {
+    opacity:1;
+
+  }
+}
+
+@media all and (min-width: 375px) and (max-width: 576px){
+
+  .showBlock {
+   width: 85%;
+
+
+
+
+  }
+  .taskBlock {
+    margin-top: 10px;
+    button {
+
+      top: 19px;
+      left: 277px;
+
+
+    }
+
+
+  }
+
+
+}

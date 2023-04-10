@@ -125,6 +125,7 @@ export const ShowListComp = () => {
                     </div>
                     {dataComplete.map((value) => (
                         <div  id={value.id} className="taskBlock" key={value.id}>
+                            <input checked='true' type="radio"/>
                             <div className='text_style'> <span>{value.task}</span> <span>{value.date}</span></div>
                             </div>
                     ))}

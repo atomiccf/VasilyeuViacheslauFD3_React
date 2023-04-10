@@ -48,4 +48,10 @@
   border-radius: 8px;
 }
 
+@media all and (min-width: 375px) and (max-width: 576px) {
+  .login_block {
+    width: 100%;
+  }
+}
+
 /*# sourceMappingURL=LoginComponent.css.map */
