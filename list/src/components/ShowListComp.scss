@@ -33,9 +33,6 @@
   }
 
 
-
-
-
 }
 .tabs_panel {
   display: flex;
@@ -145,13 +142,15 @@ input:checked + div  {
   }
 }
 
+
+
+
+
 @media all and (min-width: 375px) and (max-width: 576px){
 
   .showBlock {
+
    width: 85%;
-
-
-
 
   }
   .taskBlock {
@@ -159,11 +158,9 @@ input:checked + div  {
     button {
 
       top: 19px;
-      left: 277px;
-
+      left: 310px;
 
     }
-
 
   }
 

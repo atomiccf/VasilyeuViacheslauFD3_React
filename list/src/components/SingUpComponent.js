@@ -86,9 +86,7 @@ export const  SingUpComponent = () => {
                     </div>
                 </>
 
-
             }
-
 
         </>
 

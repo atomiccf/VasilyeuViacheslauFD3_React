@@ -6,7 +6,7 @@
   text-align: center;
   background-color: #282c34;
   margin: 0 auto;
-  width: 1960px;
+  width: 1320px;
   min-height: 100vh;
   color: #FFFF;
 
@@ -46,6 +46,44 @@
     transform: rotate(360deg);
   }
 }
+
+
+@media all and  (min-width: 1200px){
+
+  .App {
+    width:1140px;
+    min-height: 100vh;
+
+  }
+
+
+
+}
+
+@media all and  (min-width: 992px){
+
+  .App {
+    width:960px;
+    min-height: 100vh;
+
+  }
+
+
+
+}
+
+@media all and  (min-width: 768px){
+
+  .App {
+    width:720px;
+    min-height: 100vh;
+
+  }
+
+
+
+}
+
 @media all and (min-width: 375px) and (max-width: 576px){
 
   .App {
