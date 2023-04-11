@@ -20,9 +20,9 @@ export const UserVerification =() => {
 
 
         signOut(auth).then(() => {
-            console.log("Sign-out successful") // Sign-out successful.
+
             dispatch(setLogin({isLogin:false}))
-            console.log(isLogin)
+
         }).catch((error) => {
             console.log(error)
         });
