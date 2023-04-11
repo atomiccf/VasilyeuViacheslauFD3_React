@@ -3,7 +3,7 @@ import { useSelector} from 'react-redux';
 
 import { getDatabase, ref,push,set} from "firebase/database";
 
-import {ShowListComp} from "../components/ShowListComp";
+import {ShowListComp} from "./ShowListComp";
 import "./AddTaskComp.css"
 
 export const AddTaskComp =() => {
@@ -23,7 +23,12 @@ export const AddTaskComp =() => {
 
     }
 
-    const sendData = () => {
+    const sendData = (EO) => {
+        if (task === null) {
+
+            EO.preventDefault();
+
+        }
         const db = getDatabase();
         const postListRef = ref(db, 'users/'+ userId);
         const newPostRef = push(postListRef);
