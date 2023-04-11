@@ -53,7 +53,7 @@ export const AddTaskComp =() => {
             <div className="inputBlock">
                 <div className='inputGroup'>
                     <input ref={input} onChange={getTask} type="text"/>
-                    <input onClick={sendData} type="submit"/>
+                    <input onClick={sendData} value='Send' type="submit"/>
                 </div>
 
                 <ShowListComp/>
