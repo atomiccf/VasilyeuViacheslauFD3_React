@@ -48,7 +48,7 @@
 }
 
 
-@media all and  (min-width: 1200px){
+@media all and  (max-width: 1200px){
 
   .App {
     width:1140px;
@@ -60,22 +60,30 @@
 
 }
 
-@media all and  (min-width: 992px){
+@media all and  (min-width: 992px) and (max-width: 1199px ){
 
   .App {
     width:960px;
     min-height: 100vh;
 
   }
-
-
-
 }
 
-@media all and  (min-width: 768px){
+@media all and (min-width: 768px) and (max-width: 990px ){
 
   .App {
     width:720px;
+    min-height: 100vh;
+
+  }
+
+}
+
+
+@media all and  (min-width: 576px) and (max-width: 768px ){
+
+  .App {
+    width:540px;
     min-height: 100vh;
 
   }

@@ -101,6 +101,11 @@ input:checked + div {
     opacity: 1;
   }
 }
+@media all and (min-width: 576px) and (max-width: 768px) {
+  .showBlock {
+    width: 85%;
+  }
+}
 @media all and (min-width: 375px) and (max-width: 576px) {
   .showBlock {
     width: 85%;
