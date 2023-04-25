@@ -13,7 +13,7 @@ export const AddTaskComp =() => {
     const [task,setTask] = useState('');
     let input = useRef('')
     let userId = useSelector(state => state.user.id);
-    let currentDate = new Date().toLocaleString();
+    const currentDate = new Date().toLocaleString();
 
 
     const getTask = (EO) => {

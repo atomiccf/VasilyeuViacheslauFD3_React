@@ -12,6 +12,7 @@ import {EditComponent} from "./EditComponent";
 export const ShowListComp = () => {
 
     const db = getDatabase();
+    const currentDate = new Date().toLocaleString();
     const isLogin = useSelector(state => state.user.isLogin);
     const userId = useSelector(state => state.user.id);
     const userTask = useSelector(state => state.user.taskInfo);
@@ -39,7 +40,7 @@ export const ShowListComp = () => {
 
         setEdit(true);
 
-        console.log(userId)
+        console.log(taskId)
         newEvent.addListener('update', updateData);
         newEvent.addListener('cancel', cbCancel);
 
@@ -55,13 +56,15 @@ export const ShowListComp = () => {
 
         const postRef = ref(db, `users/${userId}/${taskId}`);
         update(postRef, {
-            task: userTask
+            task: userTask,
+            date: currentDate,
         }).then(() => {
             console.log("Post updated successfully!");
         })
             .catch((error) => {
                 console.error(error);
-            })
+            });
+
         setEdit(false);
         newEvent.removeListener('cancel', updateData);
     }
