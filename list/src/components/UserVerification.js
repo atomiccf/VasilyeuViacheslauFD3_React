@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 
 import {setLogin,setUser} from "../redux/userSlice";
-import { useDispatch,useSelector } from 'react-redux';
+import {useDispatch,useSelector } from 'react-redux';
 
 import {NavLink} from "react-router-dom";
 import { getAuth, signOut,onAuthStateChanged } from "firebase/auth";

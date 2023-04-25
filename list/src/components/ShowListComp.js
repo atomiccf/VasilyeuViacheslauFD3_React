@@ -1,23 +1,70 @@
-import React,{useState,useEffect} from "react";
-import { useSelector} from 'react-redux';
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from 'react-redux';
+import {setTaskInfo,setTaskId} from "../redux/userSlice";
+import {newEvent} from "./event";
 
-import { getDatabase, ref,update,onValue} from "firebase/database";
+import {getDatabase, onValue, ref, update} from "firebase/database";
 
 import "./ShowListComp.css"
-
+import {EditComponent} from "./EditComponent";
 
 
 export const ShowListComp = () => {
+
     const db = getDatabase();
     const isLogin = useSelector(state => state.user.isLogin);
     const userId = useSelector(state => state.user.id);
+    const userTask = useSelector(state => state.user.taskInfo);
+    const taskId = useSelector(state => state.user.taskId);
+    const dispatch = useDispatch();
+
     const [dataCurrent,setDataCurrent] = useState([]);
     const [dataComplete,setDataComplete] = useState([]);
     const [isCurrent,setCurrent] = useState(true);
     const [isComplete,setComplete] = useState(false);
-    const [countCurrent,setCountCurrent] = useState(0)
+    const [isEdit,setEdit] = useState(false);
+     const [countCurrent,setCountCurrent] = useState(0)
     const [countComplete,setCountComplete] = useState(0)
 
+
+    const handlerEdit = (EO) => {
+
+        EO.target.parentNode.childNodes.forEach(item => {
+            if (item.className === "text_style") {
+
+                dispatch(setTaskInfo({taskInfo:item.firstChild.nextSibling.textContent}));
+                dispatch(setTaskId({taskId:EO.target.parentNode.id}))
+            }
+        })
+
+        setEdit(true);
+
+        console.log(userId)
+        newEvent.addListener('update', updateData);
+        newEvent.addListener('cancel', cbCancel);
+
+    }
+
+    const cbCancel = () => {
+
+        setEdit(false);
+        newEvent.removeListener('cancel', cbCancel);
+    }
+
+    const updateData = () => {
+
+        const postRef = ref(db, `users/${userId}/${taskId}`);
+        update(postRef, {
+            task: userTask
+        }).then(() => {
+            console.log("Post updated successfully!");
+        })
+            .catch((error) => {
+                console.error(error);
+            })
+        setEdit(false);
+        newEvent.removeListener('cancel', updateData);
+    }
 
     const handlerChange = (EO) => {
 
@@ -39,10 +86,9 @@ export const ShowListComp = () => {
 
 
     const handlerComplete = (EO) => {
-        console.log(EO.target.parentNode.id)
 
         EO.target.parentNode.classList.add('taskBlock_hide');
-        let postId = EO.target.parentNode.id;
+        const postId = EO.target.parentNode.id;
 
 
         setTimeout(()=> {
@@ -109,8 +155,10 @@ export const ShowListComp = () => {
                     {dataCurrent.map((value) => (
                         <div  id={value.id} className="taskBlock" key={value.id}>
                             <input type="radio"/>
-                            <div className='text_style'> <span>{value.task}</span> <span>{value.date}</span></div>
-                            <button onClick={handlerComplete}></button>
+                            <div className='text_style'> {value.task} <span>{value.date}</span></div>
+
+                            <button title={'edit'} className ='edit' onClick={handlerEdit}></button>
+                            <button title={'remove'} className ='remove' onClick={handlerComplete}></button>
                         </div>
                     ))}
                 </div>
@@ -131,6 +179,12 @@ export const ShowListComp = () => {
                     ))}
                 </div>
             }
+            {(isEdit) &&
+                <EditComponent/>
+
+
+            }
+
         </>
 
     )

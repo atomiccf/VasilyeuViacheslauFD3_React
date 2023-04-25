@@ -6,6 +6,9 @@ const initialState = {
     id:null,
     token:null,
     isLogin:null,
+    taskInfo:null,
+    taskId:null,
+
 
 }
 
@@ -24,11 +27,18 @@ export const userSlice = createSlice({
 
 },
 
+    setTaskInfo: (state,action) => {
+            state.taskInfo = action.payload.taskInfo;
 
+        },
+        setTaskId: (state,action) => {
+            state.taskId = action.payload.taskId;
+
+        },
     }
 
 
 });
-export const { setUser,setLogin } = userSlice.actions;
+export const { setUser,setLogin,setTaskInfo,setTaskId } = userSlice.actions;
 
 export default userSlice.reducer;

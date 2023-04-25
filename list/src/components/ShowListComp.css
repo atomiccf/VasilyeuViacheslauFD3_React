@@ -46,13 +46,23 @@
 .taskBlock:hover {
   box-shadow: inset 8px 8px 24px 0 rgb(66, 68, 90);
 }
-.taskBlock button {
+.taskBlock .remove {
   width: 25px;
-  height: 28px;
+  height: 25px;
   position: absolute;
   top: 30px;
   left: 677px;
-  background: url("../img/trash.png") #282C34;
+  background: url("../img/remove.png");
+  border: 0;
+  cursor: pointer;
+}
+.taskBlock .edit {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 30px;
+  left: 641px;
+  background: url("../img/pencil.png");
   border: 0;
   cursor: pointer;
 }
@@ -113,7 +123,7 @@ input:checked + div {
   .taskBlock {
     margin-top: 10px;
   }
-  .taskBlock button {
+  .taskBlock #remove {
     top: 19px;
     left: 310px;
   }
