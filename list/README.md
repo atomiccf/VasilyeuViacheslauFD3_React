@@ -41,7 +41,7 @@ All information is stored in a dynamic Firebase database and is dynamically upda
 Redux is used to store data about the current user.
 
 ## Project build:
-Both live development and production builds are functioning properly.
+Both live and production builds are functioning properly.
 
 
 # Приложение сделано при помощи Create React App
