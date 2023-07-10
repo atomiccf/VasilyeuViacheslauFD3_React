@@ -1,3 +1,49 @@
+# The application is built using Create React App.
+
+## Installation on a local computer:
+You need to copy the folder from the repository.
+Run the command npm install.
+
+## In the project directory, you can run:
+
+### npm start
+This runs the application in development mode.
+Open http://localhost:3000 to view it in your browser.
+
+The page will reload when you make changes.
+You can also see any lint errors in the console.
+
+### npm run build
+This creates a production-ready application in the "build" folder.
+It correctly bundles React in production mode and optimizes the build for best performance.
+
+The build is minified, and the filenames include hashes.
+The application is ready to be deployed!
+
+## Evaluation criteria:
+
+## Web page interactivity:
+When adding or removing tasks from the list, the lists are dynamically updated.
+
+## Rendering performance:
+CSS-based animations are used for adding and removing tasks without using external libraries.
+
+## Application navigation:
+The application navigation works correctly.
+
+## Cross-browser compatibility:
+Media queries are implemented for the mobile version.
+
+## Communications:
+All information is stored in a dynamic Firebase database and is dynamically updated.
+
+## Data model:
+Redux is used to store data about the current user.
+
+## Project build:
+Both live development and production builds are functioning properly.
+
+
 # Приложение сделано при помощи Create React App
 
 ## Установка на локальный компьютер
@@ -51,4 +97,6 @@
 
 ## Сборка проекта: 
 Работает как живая сборка dev так и prod сборка 
+
+
 
