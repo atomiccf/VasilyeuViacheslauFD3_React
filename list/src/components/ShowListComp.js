@@ -40,7 +40,7 @@ export const ShowListComp = () => {
 
         setEdit(true);
 
-        console.log(taskId)
+
         newEvent.addListener('update', updateData);
         newEvent.addListener('cancel', cbCancel);
 
