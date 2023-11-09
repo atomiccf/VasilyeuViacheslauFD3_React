@@ -6,11 +6,11 @@ import './EditComponent.css'
 import {newEvent} from "./event";
 
 
-export const EditComponent = () => {
+export const EditComponent = (props) => {
 
-    const dispatch = useDispatch();
+
     const task= useSelector(state => state.user.taskInfo);
-    const inputEl = useRef(null);
+    const inputEl = useRef(task);
 
     const cancelHandler = () => {
 
@@ -18,10 +18,9 @@ export const EditComponent = () => {
 
     }
 
-    const updateText = (EO) => {
+    const updateText = () => {
 
-        dispatch(setTaskInfo({taskInfo:EO.target.value}))
-
+        props.update(inputEl.current.value)
 
     }
 

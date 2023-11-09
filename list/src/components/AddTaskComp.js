@@ -24,27 +24,34 @@ export const AddTaskComp =() => {
     }
 
     const sendData = (EO) => {
-        if (task === '') {
+        try {
+            if (task === '') {
 
-            EO.preventDefault();
+                EO.preventDefault();
 
-        } else {
-            const db = getDatabase();
-            const postListRef = ref(db, 'users/' + userId);
-            const newPostRef = push(postListRef);
+            } else {
+                const db = getDatabase();
+                const postListRef = ref(db, 'users/' + userId);
+                const newPostRef = push(postListRef);
 
+                set(newPostRef, {
+                    id: newPostRef.key,
+                    task: task,
+                    date: currentDate,
+                    state: 'current'
+                }).then(() => {
 
-            set(newPostRef, {
-                id: newPostRef.key,
-                task: task,
-                date: currentDate,
-                state: 'current'
-            }).then(() => {
+                    console.log("Success")
 
-                console.log("Success")
+                });
                 input.current.value = '';
-            })
-                .catch(console.error);
+            }
+
+        }catch (e){
+
+            console.log(e)
+
+
 
         }
 

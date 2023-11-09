@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef, createRef} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {setTaskInfo,setTaskId} from "../redux/userSlice";
 import {newEvent} from "./event";
@@ -15,7 +15,6 @@ export const ShowListComp = () => {
     const currentDate = new Date().toLocaleString();
     const isLogin = useSelector(state => state.user.isLogin);
     const userId = useSelector(state => state.user.id);
-    const userTask = useSelector(state => state.user.taskInfo);
     const taskId = useSelector(state => state.user.taskId);
     const dispatch = useDispatch();
 
@@ -24,9 +23,21 @@ export const ShowListComp = () => {
     const [isCurrent,setCurrent] = useState(true);
     const [isComplete,setComplete] = useState(false);
     const [isEdit,setEdit] = useState(false);
-     const [countCurrent,setCountCurrent] = useState(0)
-    const [countComplete,setCountComplete] = useState(0)
+    const [countCurrent,setCountCurrent] = useState(0);
+    const [countComplete,setCountComplete] = useState(0);
+    const [editValue,setEditValue] = useState('')
+    const divRef = createRef()
 
+    console.log(divRef.current?.value)
+
+    const getEditComponentValue = (value) =>{
+
+
+        setEditValue(value)
+
+
+    }
+    console.log('outside update data:' +editValue)
 
     const handlerEdit = (EO) => {
 
@@ -56,10 +67,10 @@ export const ShowListComp = () => {
 
         const postRef = ref(db, `users/${userId}/${taskId}`);
         update(postRef, {
-            task: userTask,
+            task: editValue,
             date: currentDate,
         }).then(() => {
-            console.log("Post updated successfully!");
+           console.log("Post updated successfully!");
         })
             .catch((error) => {
                 console.error(error);
@@ -158,7 +169,7 @@ export const ShowListComp = () => {
                     {dataCurrent.map((value) => (
                         <div  id={value.id} className="taskBlock" key={value.id}>
                             <input type="radio"/>
-                            <div className='text_style'> {value.task} <span>{value.date}</span></div>
+                            <div ref={divRef} className='text_style'> {value.task} <span>{value.date}</span></div>
 
                             <button title={'edit'} className ='edit' onClick={handlerEdit}></button>
                             <button title={'remove'} className ='remove' onClick={handlerComplete}></button>
@@ -183,7 +194,7 @@ export const ShowListComp = () => {
                 </div>
             }
             {(isEdit) &&
-                <EditComponent/>
+                <EditComponent update={getEditComponentValue} ref={divRef}/>
 
 
             }
